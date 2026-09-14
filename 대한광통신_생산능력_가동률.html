@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>대한광통신 생산능력·가동률 추적</title>
+<style>
+:root{
+  --bg:#f3f6f9; --panel:#ffffff; --panel-2:#f7f9fc; --navy:#172b4d;
+  --line:#d9e0e8; --line-soft:#e9edf2;
+  --ink:#172033; --ink-2:#475467; --ink-3:#667085;
+  --accent:#175cd3; --accent-soft:#eaf2ff;
+  --warn-bg:#fff7e6; --warn-line:#f2c67a; --warn-ink:#7a4a00;
+  --cap-fill:#dfe6f0; --grid:#e6ebf1;
+  --s1:#175cd3; --s2:#0f9b8e; --s3:#c2410c; --s4:#7a5af8; --tot:#172b4d;
+  --shadow:0 10px 26px rgba(23,43,77,.07);
+}
+:root[data-theme="dark"]{
+  --bg:#0d1420; --panel:#16202f; --panel-2:#1b2739; --navy:#0b1526;
+  --line:#243348; --line-soft:#1e2b3d;
+  --ink:#eaf1fa; --ink-2:#b3c3d6; --ink-3:#8296ad;
+  --accent:#69b0ff; --accent-soft:rgba(105,176,255,.16);
+  --warn-bg:#2b2410; --warn-line:#7a5a1a; --warn-ink:#f4d58d;
+  --cap-fill:#2a3a52; --grid:#243348;
+  --s1:#3b82f6; --s2:#14a89a; --s3:#d4731f; --s4:#9b7cf5; --tot:#c9d6ea;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0d1420; --panel:#16202f; --panel-2:#1b2739; --navy:#0b1526;
+    --line:#243348; --line-soft:#1e2b3d;
+    --ink:#eaf1fa; --ink-2:#b3c3d6; --ink-3:#8296ad;
+    --accent:#69b0ff; --accent-soft:rgba(105,176,255,.16);
+    --warn-bg:#2b2410; --warn-line:#7a5a1a; --warn-ink:#f4d58d;
+    --cap-fill:#2a3a52; --grid:#243348;
+    --s1:#3b82f6; --s2:#14a89a; --s3:#d4731f; --s4:#9b7cf5; --tot:#c9d6ea;
+  }
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:"Pretendard Variable",Pretendard,-apple-system,"Segoe UI","Malgun Gothic","Apple SD Gothic Neo",sans-serif;font-size:15px;line-height:1.55;word-break:keep-all;overflow-wrap:anywhere}
+.num,td.n,th.n,.tile b,.legend i{font-variant-numeric:tabular-nums;font-family:"Segoe UI",Consolas,"D2Coding",ui-monospace,monospace}
+header{background:var(--navy);color:#fff;padding:26px 20px 22px}
+header .wrap{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;justify-content:space-between}
+header h1{margin:0;font-size:22px;font-weight:700;letter-spacing:-.01em;text-wrap:balance}
+header p{margin:6px 0 0;color:#c9d6ea;font-size:13px}
+header .meta{font-size:12.5px;color:#c9d6ea;text-align:right}
+header button{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4);border-radius:8px;padding:8px 12px;font-size:13px;cursor:pointer;min-height:40px}
+header button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+main{max-width:1180px;margin:0 auto;padding:18px 16px 60px}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+.tile{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+.tile span{display:block;font-size:12px;color:var(--ink-2);letter-spacing:.02em}
+.tile b{display:block;font-size:24px;font-weight:700;margin-top:4px;line-height:1.2}
+.tile small{display:block;font-size:12px;color:var(--ink-3);margin-top:4px}
+.callout{background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:12px;padding:14px 18px;margin:0 0 14px;color:var(--ink)}
+.callout h2{margin:0 0 6px;font-size:15px;color:var(--warn-ink)}
+.callout p{margin:6px 0}
+.callout code{background:rgba(0,0,0,.06);padding:1px 6px;border-radius:5px;font-size:13px}
+section.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:14px;box-shadow:var(--shadow)}
+section.card h2{margin:0 0 4px;font-size:16px}
+section.card .sub{margin:0 0 10px;color:var(--ink-2);font-size:13px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px;color:var(--ink-2);margin:4px 0 8px}
+.legend button{display:inline-flex;align-items:center;gap:6px;background:none;border:0;padding:6px 2px;color:inherit;font:inherit;cursor:pointer;min-height:32px}
+.legend button.off{opacity:.4;text-decoration:line-through}
+.legend .sw{width:14px;height:10px;border-radius:2px;display:inline-block}
+.legend .sw.cap{background:var(--cap-fill);border:1.5px solid var(--ink-2)}
+.legend .ln{width:18px;height:0;border-top:2.5px solid;display:inline-block}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+svg.chart{display:block;min-width:760px;width:100%;height:auto}
+svg.chart text{fill:var(--ink-2);font-size:11.5px;font-family:inherit}
+svg.chart .axis line,svg.chart .grid line{stroke:var(--grid)}
+svg.chart .axis path{stroke:var(--line)}
+svg.chart .guide{stroke:var(--ink-3);stroke-dasharray:3 3;display:none}
+.tip{position:fixed;pointer-events:none;z-index:50;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:10px;box-shadow:0 12px 30px rgba(0,0,0,.18);padding:10px 12px;font-size:12.5px;min-width:200px;display:none}
+.tip h4{margin:0 0 6px;font-size:13px}
+.tip table{border-collapse:collapse;width:100%}
+.tip td{padding:2px 0;vertical-align:top}
+.tip td.n{text-align:right;padding-left:12px}
+.tip .src{margin-top:6px;color:var(--ink-3);font-size:11px;border-top:1px solid var(--line-soft);padding-top:5px}
+.tip .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:middle}
+table.data{border-collapse:collapse;width:100%;font-size:13px;min-width:760px}
+table.data th,table.data td{padding:7px 9px;border-bottom:1px solid var(--line-soft);text-align:left;white-space:nowrap}
+table.data th{background:var(--panel-2);color:var(--ink-2);font-weight:600;position:sticky;top:0;cursor:pointer;user-select:none}
+table.data th.grp{text-align:center;border-left:1px solid var(--line);cursor:default}
+table.data th.n,table.data td.n{text-align:right}
+table.data td.n.first,table.data th.first{border-left:1px solid var(--line)}
+table.data tr.total td{font-weight:700;background:var(--panel-2)}
+table.data tr.ref td{color:var(--ink-3);font-style:italic}
+table.data tr.year td{background:var(--accent-soft);color:var(--ink);font-weight:600}
+.pill{display:inline-block;padding:1px 7px;border-radius:999px;font-size:11.5px;background:var(--accent-soft);color:var(--accent);margin-left:6px;vertical-align:middle;font-weight:600}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 10px}
+.tools button,.tools a{background:var(--panel-2);border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:7px 12px;font-size:12.5px;cursor:pointer;text-decoration:none;min-height:36px;display:inline-flex;align-items:center}
+.tools button:focus-visible,.legend button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+ul.src{margin:8px 0 0;padding-left:18px;font-size:13px;color:var(--ink-2)}
+ul.src li{margin:3px 0}
+a{color:var(--accent)}
+.note{font-size:12.5px;color:var(--ink-3);margin-top:8px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:900px){.tiles{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}}
+@media (max-width:520px){.tiles{grid-template-columns:1fr 1fr}.tile b{font-size:20px}header h1{font-size:19px}}
+@media (prefers-reduced-motion:no-preference){.tip{transition:opacity .08s}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div>
+      <h1>대한광통신 생산능력·생산실적·가동률 — 1Q24 ~ 2Q26</h1>
+      <p>DART 정기보고서 「생산 및 설비에 관한 사항」 누적치를 개별 분기로 분해. 단위 억원(공시 원단위 백만원 ÷ 100).</p>
+    </div>
+    <div class="meta">기준일 2026-09-03 · 최신 공시 반기보고서(2026.06) 2026-08-14<br><button id="theme" type="button">🌗 라이트/다크</button></div>
+  </div>
+</header>
+<main>
+  <div class="tiles" id="tiles"></div>
+
+  <div class="callout">
+    <h2>먼저 볼 것 — 공시상 "생산능력"은 물리적 CAPA가 아니다</h2>
+    <p>대한광통신은 생산능력 산출근거를 <code>당기 생산량에 대한 제조원가금액 기준</code>이라고 명시한다. 실제로 10개 분기 모두 <b>통신사업 가동률 85.0%, 전력사업·AL사업 70.0%</b>로 고정돼 있다(AL사업은 1Q~2Q24만 예외). 즉 생산능력 = 생산실적 ÷ 고정비율로 <b>역산된 값</b>이고, 가동률은 정의상 상수다.</p>
+    <p>따라서 <b>이 공시 가동률로는 "Q가 더 늘어날 여지"를 판단할 수 없다.</b> 물리적 여유를 가늠하려면 절대 생산실적을 과거 고점(2022~2023년 분기 평균)과 비교하는 편이 낫다. 아래 세 번째 차트가 그 비교다.</p>
+  </div>
+
+  <section class="card">
+    <h2>① 분기별 생산능력 vs 생산실적 (연결 합계, 억원)</h2>
+    <p class="sub">누적 공시치의 차분. 2Q26은 2026-04-30 연결 편입된 INCAB AMERICA(미국 텍사스, 2개월치)를 포함하며 툴팁에서 분리 표시.</p>
+    <div class="legend" id="lgA"></div>
+    <div class="scroll"><svg class="chart" id="chA" role="img" aria-label="분기별 생산능력과 생산실적 막대 차트"></svg></div>
+  </section>
+
+  <section class="card">
+    <h2>② 가동률 추이 (생산실적 ÷ 생산능력, %)</h2>
+    <p class="sub">부문별 가동률은 산출방식 때문에 평행선이다. 합계 가동률은 부문 믹스(전력·AL 비중)에 따라 흔들릴 뿐 설비 여유와 무관하다.</p>
+    <div class="legend" id="lgB"></div>
+    <div class="scroll"><svg class="chart" id="chB" role="img" aria-label="분기별 가동률 선 차트"></svg></div>
+  </section>
+
+  <section class="card">
+    <h2>③ 부문별 분기 생산실적 (억원) — 2022·2023년 분기 평균과 비교</h2>
+    <p class="sub">점선은 사업보고서 제49기(2022)·제50기(2023) 연간 생산실적 ÷ 4. 같은 설비가 과거에 찍어낸 수준이라, 물리적 여유를 가늠하는 가장 보수적인 잣대다. 제조원가 기준이므로 원재료가·환율 변동이 섞여 있다.</p>
+    <div class="legend" id="lgC"></div>
+    <div class="scroll"><svg class="chart" id="chC" role="img" aria-label="부문별 분기 생산실적 선 차트"></svg></div>
+    <p class="note" id="noteC"></p>
+  </section>
+
+  <section class="card">
+    <h2>④ 분기별 Raw Data (억원)</h2>
+    <p class="sub">능력=생산능력, 실적=생산실적, 가동률=실적÷능력. 헤더 클릭으로 정렬. 4Q는 사업보고서 연간치 − 3분기 누적치.</p>
+    <div class="tools"><button type="button" id="csvQ">CSV 내려받기(분기)</button><button type="button" id="csvC">CSV 내려받기(공시 누적 원본)</button></div>
+    <div class="scroll"><table class="data" id="tblQ"></table></div>
+  </section>
+
+  <section class="card">
+    <h2>⑤ 공시 원문 누적치 (백만원) — 검증용</h2>
+    <p class="sub">보고서에 적힌 숫자 그대로. 분기값은 이 표의 인접 행 차분이다.</p>
+    <div class="scroll"><table class="data" id="tblC"></table></div>
+  </section>
+
+  <section class="card">
+    <h2>출처 · 주석</h2>
+    <ul class="src" id="srcList"></ul>
+    <p class="note">회계연도: 제49기=2022년, 제50기=2023년, 제51기=2024년, 제52기=2025년, 제53기=2026년. 평균가동시간 공시: 대한광통신 24시간×29일×개월수, 티에프오네트웍스 22시간×21일×개월수, INCAB AMERICA 20시간×25일×2개월(2Q26). 모든 보고서에서 「설비의 신설·매입 계획 등: 해당사항 없음」. 2Q26 유형자산 기계장치 당기 증가 143.3억원은 INCAB 연결 편입 효과가 대부분(사업소에 GRAPEVINE, TX 추가).</p>
+  </section>
+</main>
+<div class="tip" id="tip"></div>
+
+<script>
+// ===== 공시 원본(백만원, 누적). 출처: DART 정기보고서 「생산 및 설비에 관한 사항」 =====
+const SEG = ['tel','pwr','al'];
+const SEGN = {tel:'통신사업(광케이블 외)', pwr:'전력사업(OPGW 외)', al:'AL사업(티에프오네트웍스)', inc:'INCAB AMERICA(미국, 2Q26~)'};
+const SEGC = {tel:'--s1', pwr:'--s2', al:'--s3', inc:'--s4', tot:'--tot'};
+const DATA = {
+  // 연간 참고치(사업보고서 비교 열)
+  annual: {
+    '2022': {label:'제49기(2022) 연간', cap:{tel:110832,pwr:8987,al:61631}, prod:{tel:94208,pwr:6291,al:47317}, src:'20250320001578'},
+    '2023': {label:'제50기(2023) 연간', cap:{tel:93136,pwr:13500,al:66753}, prod:{tel:79165,pwr:9450,al:51249}, src:'20250320001578'},
+  },
+  // 누적 공시치
+  cum: [
+    {q:'1Q24', period:'제51기 1분기(누적 3M)', rcept:'20240516002096', dt:'2024-05-16', nm:'분기보고서(2024.03)', cap:{tel:14673,pwr:1567,al:17795}, prod:{tel:12472,pwr:1097,al:13662}},
+    {q:'2Q24', period:'제51기 반기(누적 6M)', rcept:'20240814004417', dt:'2024-08-14', nm:'반기보고서(2024.06)', cap:{tel:29298,pwr:4044,al:37260}, prod:{tel:24904,pwr:2831,al:26082}},
+    {q:'3Q24', period:'제51기 3분기(누적 9M)', rcept:'20241114002336', dt:'2024-11-14', nm:'분기보고서(2024.09)', cap:{tel:40479,pwr:7869,al:65103}, prod:{tel:34407,pwr:5509,al:45572}},
+    {q:'4Q24', period:'제51기 연간(누적 12M)', rcept:'20250320001578', dt:'2025-03-20', nm:'사업보고서(2024.12)', cap:{tel:52017,pwr:9894,al:92682}, prod:{tel:44215,pwr:6926,al:64877}},
+    {q:'1Q25', period:'제52기 1분기(누적 3M)', rcept:'20250514001227', dt:'2025-05-14', nm:'분기보고서(2025.03)', cap:{tel:12768,pwr:1556,al:16150}, prod:{tel:10853,pwr:1089,al:11305}},
+    {q:'2Q25', period:'제52기 반기(누적 6M)', rcept:'20250814003634', dt:'2025-08-14', nm:'반기보고서(2025.06)', cap:{tel:26565,pwr:4606,al:34052}, prod:{tel:22580,pwr:3224,al:23837}},
+    {q:'3Q25', period:'제52기 3분기(누적 9M)', rcept:'20251112000555', dt:'2025-11-12', nm:'분기보고서(2025.09)', cap:{tel:39744,pwr:8691,al:42736}, prod:{tel:33782,pwr:6084,al:29915}},
+    {q:'4Q25', period:'제52기 연간(누적 12M)', rcept:'20260319000854', dt:'2026-03-19', nm:'사업보고서(2025.12)', cap:{tel:51747,pwr:11972,al:54823}, prod:{tel:43984,pwr:8380,al:38376}},
+    {q:'1Q26', period:'제53기 1분기(누적 3M)', rcept:'20260515002702', dt:'2026-05-15', nm:'분기보고서(2026.03)', cap:{tel:14265,pwr:7783,al:16317}, prod:{tel:12125,pwr:5448,al:11422}},
+    {q:'2Q26', period:'제53기 반기(누적 6M)', rcept:'20260814002121', dt:'2026-08-14', nm:'반기보고서(2026.06)', cap:{tel:36688,pwr:10812,al:42653, inc:15876}, prod:{tel:31185,pwr:7568,al:29857, inc:7010},
+      incDetail:{cap:{tel:3951,pwr:11925}, prod:{tel:2372,pwr:4638}}},
+  ],
+};
+
+// ===== 누적 → 분기 차분 =====
+const Q = DATA.cum.map((r,i)=>{
+  const prev = (i>0 && r.q.slice(-2)===DATA.cum[i-1].q.slice(-2) && r.q[0]!=='1') ? DATA.cum[i-1] : null;
+  const cap={}, prod={};
+  const keys = ['tel','pwr','al','inc'];
+  keys.forEach(k=>{
+    if(r.cap[k]==null) return;
+    cap[k]  = r.cap[k]  - (prev && prev.cap[k]!=null ? prev.cap[k] : 0);
+    prod[k] = r.prod[k] - (prev && prev.prod[k]!=null ? prev.prod[k] : 0);
+  });
+  const sum = o=>Object.values(o).reduce((a,b)=>a+b,0);
+  const capT=sum(cap), prodT=sum(prod);
+  const capX = capT-(cap.inc||0), prodX = prodT-(prod.inc||0);
+  return {q:r.q, rcept:r.rcept, dt:r.dt, nm:r.nm, period:r.period, cap, prod, capT, prodT, capX, prodX, hasInc:cap.inc!=null};
+});
+const A = v=>v/100;                    // 백만원 → 억원
+const f1 = v=>(Math.round(v*10)/10).toLocaleString('ko-KR',{minimumFractionDigits:1,maximumFractionDigits:1});
+const f0 = v=>Math.round(v).toLocaleString('ko-KR');
+const pct = (a,b)=>b?(a/b*100):NaN;
+const css = v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const dartUrl = no=>`https://dart.fss.or.kr/dsaf001/main.do?rcpNo=${no}`;
+
+// ===== 타일 =====
+(function tiles(){
+  const last=Q[Q.length-1], prev=Q[Q.length-2], yoy=Q[Q.length-5];
+  const ref23 = DATA.annual['2023'].prod.tel/4, ref22 = DATA.annual['2022'].prod.tel/4;
+  const t=[
+    {s:'2Q26 생산실적(연결 합계)', b:f1(A(last.prodT))+'억', m:`INCAB 제외 ${f1(A(last.prodX))}억 · QoQ ${f1(A(last.prodX-prev.prodT))}억 / YoY ${f1(A(last.prodX-yoy.prodT))}억(INCAB 제외)`},
+    {s:'2Q26 공시 생산능력(연결 합계)', b:f1(A(last.capT))+'억', m:`INCAB 제외 ${f1(A(last.capX))}억 · 실적÷고정비율로 역산된 값`},
+    {s:'2Q26 가동률(합계 / INCAB 제외)', b:f1(pct(last.prodT,last.capT))+'% / '+f1(pct(last.prodX,last.capX))+'%', m:'통신 85.0% · 전력 70.0% · AL 70.0% 고정(산출방식)'},
+    {s:'2Q26 통신 생산실적 vs 2022·23 분기평균', b:f1(A(last.prod.tel))+'억', m:`2022년 평균 ${f1(A(ref22))}억 · 2023년 평균 ${f1(A(ref23))}억 → 과거 고점 대비 ${f0(last.prod.tel/ref22*100)}% / ${f0(last.prod.tel/ref23*100)}%`},
+  ];
+  document.getElementById('tiles').innerHTML = t.map(x=>`<div class="tile"><span>${x.s}</span><b>${x.b}</b><small>${x.m}</small></div>`).join('');
+})();
+
+// ===== 공통 SVG 유틸 =====
+const NS='http://www.w3.org/2000/svg';
+function el(n,a,txt){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;return e;}
+const tip=document.getElementById('tip');
+function showTip(html,x,y){tip.innerHTML=html;tip.style.display='block';const w=tip.offsetWidth,h=tip.offsetHeight;let L=x+16,T=y+16;if(L+w>innerWidth-8)L=x-w-16;if(T+h>innerHeight-8)T=y-h-16;if(L<8)L=8;if(T<8)T=8;tip.style.left=L+'px';tip.style.top=T+'px';}
+function hideTip(){tip.style.display='none';}
+function niceMax(v){const p=Math.pow(10,Math.floor(Math.log10(v)));const m=v/p;const s=m<=1?1:m<=2?2:m<=2.5?2.5:m<=5?5:10;return s*p;}
+function bindHover(svg,rect,onMove){
+  const pt=(ev)=>{const t=ev.touches?ev.touches[0]:ev;const b=svg.getBoundingClientRect();const vb=svg.viewBox.baseVal;return {x:(t.clientX-b.left)*vb.width/b.width, cx:t.clientX, cy:t.clientY};};
+  rect.addEventListener('mousemove',ev=>onMove(pt(ev)));
+  rect.addEventListener('mouseleave',()=>onMove(null));
+  rect.addEventListener('touchstart',ev=>{onMove(pt(ev));},{passive:true});
+  rect.addEventListener('touchmove',ev=>{onMove(pt(ev));},{passive:true});
+  rect.addEventListener('touchend',()=>onMove(null));
+}
+function legend(id,items,onToggle){
+  const box=document.getElementById(id);box.innerHTML='';
+  items.forEach(it=>{const b=document.createElement('button');b.type='button';b.innerHTML=(it.kind==='line'?`<span class="ln" style="border-color:var(${it.c})"></span>`:it.kind==='cap'?`<span class="sw cap"></span>`:`<span class="sw" style="background:var(${it.c})"></span>`)+it.label;b.addEventListener('click',()=>{it.on=!it.on;b.classList.toggle('off',!it.on);onToggle();});box.appendChild(b);});
+}
+const SRC_LINE = q=>`<div class="src">출처: DART ${q.nm} (${q.dt}) · 누적치 차분 · 억원</div>`;
+
+// ===== ① 그룹 막대 =====
+const seriesA=[{key:'cap',label:'생산능력(공시)',kind:'cap',on:true},{key:'prod',label:'생산실적',kind:'bar',c:'--tot',on:true}];
+function drawA(){
+  const svg=document.getElementById('chA');svg.innerHTML='';
+  const W=980,H=390,P={l:64,r:20,t:36,b:44};const iw=W-P.l-P.r,ih=H-P.t-P.b;svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  const n=Q.length,bw=iw/n,g=8,barW=(bw-g*2)/2;
+  const maxV=niceMax(Math.max(...Q.map(q=>Math.max(q.capT,q.prodT)))*1.08/100);
+  const y=v=>P.t+ih-(v/maxV)*ih;
+  const grid=el('g',{class:'grid'});for(let i=0;i<=5;i++){const v=maxV/5*i;grid.appendChild(el('line',{x1:P.l,x2:W-P.r,y1:y(v),y2:y(v)}));svg.appendChild(el('text',{x:P.l-8,y:y(v)+4,'text-anchor':'end'},f0(v)));}svg.appendChild(grid);
+  svg.appendChild(el('text',{x:P.l-8,y:12,'text-anchor':'end',style:'font-size:10.5px'},'억원'));
+  const capOn=seriesA[0].on,prodOn=seriesA[1].on;
+  Q.forEach((q,i)=>{
+    const x0=P.l+i*bw+g;
+    if(capOn){svg.appendChild(el('rect',{x:x0,y:y(A(q.capT)),width:barW-1,height:ih-(y(A(q.capT))-P.t),fill:'var(--cap-fill)',stroke:'var(--ink-2)','stroke-width':1,rx:3}));}
+    if(prodOn){const xx=x0+barW+1;svg.appendChild(el('rect',{x:xx,y:y(A(q.prodT)),width:barW-1,height:ih-(y(A(q.prodT))-P.t),fill:'var(--tot)',rx:3}));
+      if(q.hasInc){svg.appendChild(el('rect',{x:xx,y:y(A(q.prodT)),width:barW-1,height:y(A(q.prodX))-y(A(q.prodT)),fill:'var(--s4)',rx:3}));}}
+    svg.appendChild(el('text',{x:x0+bw/2-g,y:H-P.b+18,'text-anchor':'middle',style:'font-weight:600'},q.q));
+    // 값 라벨(생산실적만, 선택적)
+    if(prodOn)svg.appendChild(el('text',{x:x0+barW+1+(barW-1)/2,y:y(A(q.prodT))-6,'text-anchor':'middle',style:'font-size:10.5px'},f0(A(q.prodT))));
+  });
+  svg.appendChild(el('line',{x1:P.l,x2:W-P.r,y1:P.t+ih,y2:P.t+ih,stroke:'var(--line)'}));
+  const guide=el('rect',{x:0,y:P.t,width:bw,height:ih,fill:'var(--accent)',opacity:.08,style:'display:none'});svg.appendChild(guide);
+  const hit=el('rect',{x:P.l,y:P.t,width:iw,height:ih,fill:'transparent'});svg.appendChild(hit);
+  bindHover(svg,hit,p=>{if(!p){guide.style.display='none';hideTip();return;}let i=Math.floor((p.x-P.l)/bw);i=Math.max(0,Math.min(n-1,i));const q=Q[i];guide.setAttribute('x',P.l+i*bw);guide.style.display='block';
+    let rows=`<tr><td><span class="dot" style="background:var(--cap-fill);border:1.5px solid var(--ink-2)"></span>생산능력(공시)</td><td class="n">${f1(A(q.capT))} 억원</td></tr><tr><td><span class="dot" style="background:var(--tot)"></span>생산실적</td><td class="n">${f1(A(q.prodT))} 억원</td></tr><tr><td>가동률</td><td class="n">${f1(pct(q.prodT,q.capT))} %</td></tr>`;
+    if(q.hasInc)rows+=`<tr><td colspan="2" style="color:var(--ink-3);padding-top:4px">INCAB 제외: 능력 ${f1(A(q.capX))} / 실적 ${f1(A(q.prodX))} / ${f1(pct(q.prodX,q.capX))}%<br><span class="dot" style="background:var(--s4)"></span>INCAB 2개월: 능력 ${f1(A(q.cap.inc))} / 실적 ${f1(A(q.prod.inc))}</td></tr>`;
+    rows+=SEG.map(k=>`<tr><td><span class="dot" style="background:var(${SEGC[k]})"></span>${SEGN[k].split('(')[0]}</td><td class="n">${f1(A(q.prod[k]))} / ${f1(A(q.cap[k]))} (${f1(pct(q.prod[k],q.cap[k]))}%)</td></tr>`).join('');
+    showTip(`<h4>${q.q} · ${q.period}</h4><table>${rows}</table><div class="src" style="border:0;padding:0;margin-top:2px">부문 행: 실적 / 능력 (가동률)</div>${SRC_LINE(q)}`,p.cx,p.cy);});
+}
+legend('lgA',seriesA,drawA);
+
+// ===== ② 가동률 선 =====
+const seriesB=[{key:'tot',label:'합계',kind:'line',c:'--tot',on:true},{key:'tel',label:'통신',kind:'line',c:'--s1',on:true},{key:'pwr',label:'전력',kind:'line',c:'--s2',on:true},{key:'al',label:'AL',kind:'line',c:'--s3',on:true},{key:'totx',label:'합계(INCAB 제외)',kind:'line',c:'--s4',on:false}];
+function utilOf(q,k){if(k==='tot')return pct(q.prodT,q.capT);if(k==='totx')return pct(q.prodX,q.capX);return pct(q.prod[k],q.cap[k]);}
+function drawB(){
+  const svg=document.getElementById('chB');svg.innerHTML='';
+  const W=980,H=320,P={l:56,r:20,t:22,b:40};const iw=W-P.l-P.r,ih=H-P.t-P.b;svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  const n=Q.length,x=i=>P.l+iw*(i+.5)/n;const lo=55,hi=95;const y=v=>P.t+ih-((v-lo)/(hi-lo))*ih;
+  const grid=el('g',{class:'grid'});for(let v=lo;v<=hi;v+=10){grid.appendChild(el('line',{x1:P.l,x2:W-P.r,y1:y(v),y2:y(v)}));svg.appendChild(el('text',{x:P.l-8,y:y(v)+4,'text-anchor':'end'},v+'%'));}svg.appendChild(grid);
+  Q.forEach((q,i)=>svg.appendChild(el('text',{x:x(i),y:H-P.b+18,'text-anchor':'middle',style:'font-weight:600'},q.q)));
+  const marks=[];
+  seriesB.filter(s=>s.on).forEach(s=>{
+    const pts=Q.map((q,i)=>({i,v:utilOf(q,s.key)})).filter(p=>!isNaN(p.v));
+    svg.appendChild(el('path',{d:pts.map((p,j)=>(j?'L':'M')+x(p.i)+' '+y(p.v)).join(' '),fill:'none',stroke:`var(${s.c})`,'stroke-width':2.5,'stroke-linejoin':'round'}));
+    const last=pts[pts.length-1];svg.appendChild(el('text',{x:x(last.i)+10,y:y(last.v)+4,style:'font-size:10.5px;font-weight:600'},''));
+    pts.forEach(p=>{const c=el('circle',{cx:x(p.i),cy:y(p.v),r:5,fill:`var(${s.c})`,stroke:'var(--panel)','stroke-width':2,style:'display:none'});svg.appendChild(c);marks.push(c);});
+  });
+  const guide=el('line',{class:'guide',y1:P.t,y2:P.t+ih});svg.appendChild(guide);
+  const hit=el('rect',{x:P.l,y:P.t,width:iw,height:ih,fill:'transparent'});svg.appendChild(hit);
+  bindHover(svg,hit,p=>{marks.forEach(m=>m.style.display='none');if(!p){guide.style.display='none';hideTip();return;}let i=Math.round((p.x-P.l)/iw*n-.5);i=Math.max(0,Math.min(n-1,i));const q=Q[i];guide.setAttribute('x1',x(i));guide.setAttribute('x2',x(i));guide.style.display='block';marks.forEach(m=>{if(Math.abs(+m.getAttribute('cx')-x(i))<.5)m.style.display='block';});
+    const rows=seriesB.filter(s=>s.on).map(s=>{const v=utilOf(q,s.key);return `<tr><td><span class="dot" style="background:var(${s.c})"></span>${s.label}</td><td class="n">${isNaN(v)?'—':f1(v)+' %'}</td></tr>`;}).join('');
+    showTip(`<h4>${q.q} 가동률</h4><table>${rows}</table>${SRC_LINE(q)}`,p.cx,p.cy);});
+}
+legend('lgB',seriesB,drawB);
+
+// ===== ③ 부문별 생산실적 + 참고선 =====
+const seriesC=[{key:'tel',label:'통신 생산실적',kind:'line',c:'--s1',on:true},{key:'pwr',label:'전력 생산실적',kind:'line',c:'--s2',on:true},{key:'al',label:'AL 생산실적',kind:'line',c:'--s3',on:true},{key:'ref',label:'통신 2022·2023 분기평균(점선)',kind:'line',c:'--s1',on:true}];
+function drawC(){
+  const svg=document.getElementById('chC');svg.innerHTML='';
+  const W=980,H=370,P={l:64,r:160,t:34,b:40};const iw=W-P.l-P.r,ih=H-P.t-P.b;svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  const n=Q.length,x=i=>P.l+iw*(i+.5)/n;
+  const ref22=A(DATA.annual['2022'].prod.tel/4),ref23=A(DATA.annual['2023'].prod.tel/4);
+  const maxV=niceMax(Math.max(ref22,...Q.flatMap(q=>SEG.map(k=>A(q.prod[k]))))*1.1);
+  const y=v=>P.t+ih-(v/maxV)*ih;
+  const grid=el('g',{class:'grid'});for(let i=0;i<=5;i++){const v=maxV/5*i;grid.appendChild(el('line',{x1:P.l,x2:W-P.r,y1:y(v),y2:y(v)}));svg.appendChild(el('text',{x:P.l-8,y:y(v)+4,'text-anchor':'end'},f0(v)));}svg.appendChild(grid);
+  svg.appendChild(el('text',{x:P.l-8,y:12,'text-anchor':'end',style:'font-size:10.5px'},'억원'));
+  Q.forEach((q,i)=>svg.appendChild(el('text',{x:x(i),y:H-P.b+18,'text-anchor':'middle',style:'font-weight:600'},q.q)));
+  const marks=[];
+  const refOn=seriesC[3].on;
+  // 우측 라벨은 전부 한 목록에 모아 y 순 정렬 후 최소 14px 간격으로 밀어낸다(참고선 라벨 포함)
+  const ends=[];
+  if(refOn){[['2022년 분기평균 '+f1(ref22),ref22],['2023년 분기평균 '+f1(ref23),ref23]].forEach(([lb,v])=>{svg.appendChild(el('line',{x1:P.l,x2:W-P.r,y1:y(v),y2:y(v),stroke:'var(--s1)','stroke-dasharray':'5 4','stroke-width':1.5,opacity:.8}));ends.push({ref:true,label:lb,y:y(v)});});}
+  seriesC.slice(0,3).filter(s=>s.on).forEach(s=>{
+    const pts=Q.map((q,i)=>({i,v:A(q.prod[s.key])}));
+    svg.appendChild(el('path',{d:pts.map((p,j)=>(j?'L':'M')+x(p.i)+' '+y(p.v)).join(' '),fill:'none',stroke:`var(${s.c})`,'stroke-width':2.5,'stroke-linejoin':'round'}));
+    pts.forEach(p=>{const c=el('circle',{cx:x(p.i),cy:y(p.v),r:5,fill:`var(${s.c})`,stroke:'var(--panel)','stroke-width':2,style:'display:none'});svg.appendChild(c);marks.push(c);});
+    ends.push({s,y:y(pts[n-1].v),v:pts[n-1].v});
+  });
+  ends.sort((a,b)=>a.y-b.y);
+  ends.forEach((e,k)=>{let yy=e.y+4;if(k>0&&yy-ends[k-1].ly<17)yy=ends[k-1].ly+17;e.ly=yy;});
+  ends.forEach(e=>{if(e.ref){svg.appendChild(el('text',{x:W-P.r+8,y:e.ly,style:'font-size:10.5px'},e.label));}else{svg.appendChild(el('text',{x:W-P.r+8,y:e.ly,style:`font-size:10.5px;font-weight:600;fill:var(${e.s.c})`},e.s.label.split(' ')[0]+' '+f1(e.v)));}});
+  const guide=el('line',{class:'guide',y1:P.t,y2:P.t+ih});svg.appendChild(guide);
+  const hit=el('rect',{x:P.l,y:P.t,width:iw,height:ih,fill:'transparent'});svg.appendChild(hit);
+  bindHover(svg,hit,p=>{marks.forEach(m=>m.style.display='none');if(!p){guide.style.display='none';hideTip();return;}let i=Math.round((p.x-P.l)/iw*n-.5);i=Math.max(0,Math.min(n-1,i));const q=Q[i];guide.setAttribute('x1',x(i));guide.setAttribute('x2',x(i));guide.style.display='block';marks.forEach(m=>{if(Math.abs(+m.getAttribute('cx')-x(i))<.5)m.style.display='block';});
+    const rows=seriesC.slice(0,3).filter(s=>s.on).map(s=>`<tr><td><span class="dot" style="background:var(${s.c})"></span>${s.label}</td><td class="n">${f1(A(q.prod[s.key]))} 억원</td></tr>`).join('')+(q.hasInc?`<tr><td><span class="dot" style="background:var(--s4)"></span>INCAB(통신 ${f1(A(q.hasInc?DATA.cum[9].incDetail.prod.tel:0))} · 전력 ${f1(A(DATA.cum[9].incDetail.prod.pwr))})</td><td class="n">${f1(A(q.prod.inc))} 억원</td></tr>`:'')+`<tr><td colspan="2" style="color:var(--ink-3);padding-top:4px">통신 2022 분기평균 ${f1(ref22)} · 2023 분기평균 ${f1(ref23)} → 이번 분기 통신은 ${f0(A(q.prod.tel)/ref22*100)}% / ${f0(A(q.prod.tel)/ref23*100)}%</td></tr>`;
+    showTip(`<h4>${q.q} 부문별 생산실적</h4><table>${rows}</table>${SRC_LINE(q)}`,p.cx,p.cy);});
+  const last=Q[n-1];
+  document.getElementById('noteC').textContent=`읽는 법: 통신사업 분기 생산실적은 1Q24 ${f1(A(Q[0].prod.tel))}억 → 4Q25 ${f1(A(Q[7].prod.tel))}억 → 2Q26 ${f1(A(last.prod.tel))}억(INCAB 제외)으로 급반등했지만, 2022년 분기평균 ${f1(ref22)}억·2023년 분기평균 ${f1(ref23)}억에는 아직 못 미친다. 같은 설비가 과거에 그만큼 찍었으므로 제조원가 기준으로는 아직 위쪽 공간이 남아 있다는 뜻이다. 다만 고밀도 광케이블은 인출 효율이 낮아 같은 금액이 더 많은 설비시간을 먹을 수 있어, 물리적 한계는 이 숫자보다 가까울 수 있다.`;
+}
+legend('lgC',seriesC,drawC);
+
+// ===== ④ 분기 표 =====
+function buildQ(){
+  const cols=[['q','분기'],['capT','합계 능력'],['prodT','합계 실적'],['uT','가동률'],['capTel','통신 능력'],['prodTel','통신 실적'],['uTel','가동률'],['capPwr','전력 능력'],['prodPwr','전력 실적'],['uPwr','가동률'],['capAl','AL 능력'],['prodAl','AL 실적'],['uAl','가동률']];
+  const rows=Q.map(q=>({q:q.q,capT:A(q.capT),prodT:A(q.prodT),uT:pct(q.prodT,q.capT),capTel:A(q.cap.tel),prodTel:A(q.prod.tel),uTel:pct(q.prod.tel,q.cap.tel),capPwr:A(q.cap.pwr),prodPwr:A(q.prod.pwr),uPwr:pct(q.prod.pwr,q.cap.pwr),capAl:A(q.cap.al),prodAl:A(q.prod.al),uAl:pct(q.prod.al,q.cap.al),inc:q.hasInc?{cap:A(q.cap.inc),prod:A(q.prod.inc)}:null,src:q}));
+  const yearRows=[];
+  [['2024',0,4],['2025',4,8],['1H26',8,10]].forEach(([lb,a,b])=>{const s=Q.slice(a,b);const sum=f=>s.reduce((t,q)=>t+f(q),0);yearRows.push({label:lb+(lb.length===4?'년 합계':' 합계'),capT:A(sum(q=>q.capT)),prodT:A(sum(q=>q.prodT)),uT:pct(sum(q=>q.prodT),sum(q=>q.capT)),capTel:A(sum(q=>q.cap.tel)),prodTel:A(sum(q=>q.prod.tel)),uTel:pct(sum(q=>q.prod.tel),sum(q=>q.cap.tel)),capPwr:A(sum(q=>q.cap.pwr)),prodPwr:A(sum(q=>q.prod.pwr)),uPwr:pct(sum(q=>q.prod.pwr),sum(q=>q.cap.pwr)),capAl:A(sum(q=>q.cap.al)),prodAl:A(sum(q=>q.prod.al)),uAl:pct(sum(q=>q.prod.al),sum(q=>q.cap.al))});});
+  const refRows=Object.entries(DATA.annual).map(([y,a])=>{const c=a.cap,p=a.prod;const cT=c.tel+c.pwr+c.al,pT=p.tel+p.pwr+p.al;return {label:a.label+' ÷4 (참고)',capT:A(cT/4),prodT:A(pT/4),uT:pct(pT,cT),capTel:A(c.tel/4),prodTel:A(p.tel/4),uTel:pct(p.tel,c.tel),capPwr:A(c.pwr/4),prodPwr:A(p.pwr/4),uPwr:pct(p.pwr,c.pwr),capAl:A(c.al/4),prodAl:A(p.al/4),uAl:pct(p.al,c.al)};});
+  let sortKey=null,asc=true;
+  const t=document.getElementById('tblQ');
+  function render(){
+    let rs=rows.slice();if(sortKey){rs.sort((a,b)=>(a[sortKey]>b[sortKey]?1:-1)*(asc?1:-1));}
+    const cell=(r,k,i)=>{const v=r[k];if(k==='q')return `<td>${v}${r.inc?'<span class="pill">INCAB 포함</span>':''}</td>`;const first=(i===4||i===7||i===10)?' first':'';return `<td class="n${first}">${isNaN(v)?'—':(k[0]==='u'?f1(v)+'%':f1(v))}</td>`;};
+    const head=`<thead><tr><th rowspan="2" data-k="q">분기 ${sortKey==='q'?(asc?'▲':'▼'):''}</th><th class="grp" colspan="3">연결 합계</th><th class="grp" colspan="3">통신사업</th><th class="grp" colspan="3">전력사업</th><th class="grp" colspan="3">AL사업</th></tr><tr>${cols.slice(1).map((c,i)=>`<th class="n${(i===3||i===6||i===9)?' first':''}" data-k="${c[0]}">${c[1].replace(/^\S+ /,'')} ${sortKey===c[0]?(asc?'▲':'▼'):''}</th>`).join('')}</tr></thead>`;
+    const body=rs.map(r=>`<tr>${cols.map((c,i)=>cell(r,c[0],i)).join('')}</tr>`+(r.inc?`<tr class="ref"><td>&nbsp;└ 2Q26 INCAB 제외</td><td class="n">${f1(r.capT-r.inc.cap)}</td><td class="n">${f1(r.prodT-r.inc.prod)}</td><td class="n">${f1(pct(r.prodT-r.inc.prod,r.capT-r.inc.cap))}%</td><td colspan="9" style="white-space:normal">INCAB AMERICA 2개월(5~6월): 능력 ${f1(r.inc.cap)} / 실적 ${f1(r.inc.prod)} 억원 (통신 ${f1(A(DATA.cum[9].incDetail.prod.tel))}·전력 ${f1(A(DATA.cum[9].incDetail.prod.pwr))})</td></tr>`:'')).join('');
+    const yr=yearRows.map(r=>`<tr class="year"><td>${r.label}</td>${cols.slice(1).map((c,i)=>`<td class="n${(i===3||i===6||i===9)?' first':''}">${c[0][0]==='u'?f1(r[c[0]])+'%':f1(r[c[0]])}</td>`).join('')}</tr>`).join('');
+    const rf=refRows.map(r=>`<tr class="ref"><td>${r.label}</td>${cols.slice(1).map((c,i)=>`<td class="n${(i===3||i===6||i===9)?' first':''}">${c[0][0]==='u'?f1(r[c[0]])+'%':f1(r[c[0]])}</td>`).join('')}</tr>`).join('');
+    t.innerHTML=head+`<tbody>${body}${yr}${rf}</tbody>`;
+    t.querySelectorAll('th[data-k]').forEach(th=>th.addEventListener('click',()=>{const k=th.dataset.k;if(sortKey===k)asc=!asc;else{sortKey=k;asc=true;}render();}));
+  }
+  render();
+  document.getElementById('csvQ').addEventListener('click',()=>{const h=['분기','합계_능력','합계_실적','합계_가동률%','통신_능력','통신_실적','통신_가동률%','전력_능력','전력_실적','전력_가동률%','AL_능력','AL_실적','AL_가동률%','INCAB_능력','INCAB_실적','출처_접수번호'];const L=[h.join(',')].concat(rows.map(r=>[r.q,r.capT,r.prodT,r.uT.toFixed(2),r.capTel,r.prodTel,r.uTel.toFixed(2),r.capPwr,r.prodPwr,r.uPwr.toFixed(2),r.capAl,r.prodAl,r.uAl.toFixed(2),r.inc?r.inc.cap:'',r.inc?r.inc.prod:'',r.src.rcept].join(',')));dl('대한광통신_분기별_생산능력_실적_억원.csv',L.join('\n'));});
+}
+buildQ();
+
+// ===== ⑤ 누적 원본 표 =====
+(function buildC(){
+  const t=document.getElementById('tblC');
+  const head=`<thead><tr><th>보고서</th><th>기간(누적)</th><th class="n first">통신 능력</th><th class="n">통신 실적</th><th class="n first">전력 능력</th><th class="n">전력 실적</th><th class="n first">AL 능력</th><th class="n">AL 실적</th><th class="n first">INCAB 능력</th><th class="n">INCAB 실적</th><th class="n first">합계 능력</th><th class="n">합계 실적</th><th>원문</th></tr></thead>`;
+  const rows=DATA.cum.map(r=>{const cT=Object.values(r.cap).reduce((a,b)=>a+b,0),pT=Object.values(r.prod).reduce((a,b)=>a+b,0);return `<tr><td>${r.nm}</td><td>${r.period}</td><td class="n first">${f0(r.cap.tel)}</td><td class="n">${f0(r.prod.tel)}</td><td class="n first">${f0(r.cap.pwr)}</td><td class="n">${f0(r.prod.pwr)}</td><td class="n first">${f0(r.cap.al)}</td><td class="n">${f0(r.prod.al)}</td><td class="n first">${r.cap.inc!=null?f0(r.cap.inc):'—'}</td><td class="n">${r.prod.inc!=null?f0(r.prod.inc):'—'}</td><td class="n first">${f0(cT)}</td><td class="n">${f0(pT)}</td><td><a href="${dartUrl(r.rcept)}" target="_blank" rel="noopener">${r.rcept}</a></td></tr>`;}).join('');
+  const ann=Object.values(DATA.annual).map(a=>{const c=a.cap,p=a.prod;return `<tr class="ref"><td>사업보고서 비교열</td><td>${a.label}</td><td class="n first">${f0(c.tel)}</td><td class="n">${f0(p.tel)}</td><td class="n first">${f0(c.pwr)}</td><td class="n">${f0(p.pwr)}</td><td class="n first">${f0(c.al)}</td><td class="n">${f0(p.al)}</td><td class="n first">—</td><td class="n">—</td><td class="n first">${f0(c.tel+c.pwr+c.al)}</td><td class="n">${f0(p.tel+p.pwr+p.al)}</td><td><a href="${dartUrl(a.src)}" target="_blank" rel="noopener">${a.src}</a></td></tr>`;}).join('');
+  t.innerHTML=head+`<tbody>${rows}${ann}</tbody>`;
+  document.getElementById('csvC').addEventListener('click',()=>{const h=['보고서','기간','통신_능력','통신_실적','전력_능력','전력_실적','AL_능력','AL_실적','INCAB_능력','INCAB_실적','접수번호'];const L=[h.join(',')].concat(DATA.cum.map(r=>[r.nm,r.period,r.cap.tel,r.prod.tel,r.cap.pwr,r.prod.pwr,r.cap.al,r.prod.al,r.cap.inc??'',r.prod.inc??'',r.rcept].join(',')));dl('대한광통신_공시누적_생산능력_실적_백만원.csv',L.join('\n'));});
+  document.getElementById('srcList').innerHTML=DATA.cum.map(r=>`<li>DART 대한광통신 ${r.nm} · 접수 ${r.dt} · <a href="${dartUrl(r.rcept)}" target="_blank" rel="noopener">${r.rcept}</a> — Ⅱ. 사업의 내용 › 3. 생산 및 설비 (생산능력·생산실적, 단위 백만원)</li>`).join('')+`<li>INCAB AMERICA LLC 편입: 2026-04-30 지분 90% 취득(반기보고서 2026.06 연결재무제표 주석). 인수 완료 보도 2026-05-06.</li>`;
+})();
+function dl(name,text){const b=new Blob(['﻿'+text],{type:'text/csv;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},500);}
+
+// ===== 테마 =====
+function isDark(){const a=document.documentElement.getAttribute('data-theme');if(a==='dark')return true;if(a==='light')return false;return matchMedia('(prefers-color-scheme: dark)').matches;}
+document.getElementById('theme').addEventListener('click',()=>{document.documentElement.setAttribute('data-theme',isDark()?'light':'dark');});
+function redraw(){drawA();drawB();drawC();}
+new MutationObserver(redraw).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',redraw);
+redraw();
+</script>
+</body>
+</html>

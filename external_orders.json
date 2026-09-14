@@ -1,0 +1,329 @@
+{
+ "효성중공업": {
+  "quarters": [
+   {
+    "q": "2021Q1",
+    "backlog": 21308.0,
+    "newOrders": 3799.0
+   },
+   {
+    "q": "2021Q2",
+    "backlog": 22658.0,
+    "newOrders": 4647.0
+   },
+   {
+    "q": "2021Q3",
+    "backlog": 22421.0,
+    "newOrders": 3672.0
+   },
+   {
+    "q": "2021Q4",
+    "backlog": 23076.0,
+    "newOrders": 5902.0
+   },
+   {
+    "q": "2022Q1",
+    "backlog": 26235.0,
+    "newOrders": 5095.0
+   },
+   {
+    "q": "2022Q2",
+    "backlog": 30981.0,
+    "newOrders": 9426.0
+   },
+   {
+    "q": "2022Q3",
+    "backlog": 33267.0,
+    "newOrders": 6132.0
+   },
+   {
+    "q": "2022Q4",
+    "backlog": 33000.0,
+    "newOrders": 5347.0
+   },
+   {
+    "q": "2023Q1",
+    "backlog": 36000.0,
+    "newOrders": 9837.0
+   },
+   {
+    "q": "2023Q2",
+    "backlog": 35000.0,
+    "newOrders": 7962.0
+   },
+   {
+    "q": "2023Q3",
+    "backlog": 35000.0,
+    "newOrders": 7710.0
+   },
+   {
+    "q": "2023Q4",
+    "backlog": 37000.0,
+    "newOrders": 10626.0
+   },
+   {
+    "q": "2024Q1",
+    "backlog": 41000.0,
+    "newOrders": 13759.0
+   },
+   {
+    "q": "2024Q2",
+    "backlog": 66000.0,
+    "newOrders": 15062.0
+   },
+   {
+    "q": "2024Q3",
+    "backlog": 73000.0,
+    "newOrders": 18756.0
+   },
+   {
+    "q": "2024Q4",
+    "backlog": 92000.0,
+    "newOrders": 7813.0
+   },
+   {
+    "q": "2025Q1",
+    "backlog": 104000.0,
+    "newOrders": 20085.0
+   },
+   {
+    "q": "2025Q2",
+    "backlog": 107000.0,
+    "newOrders": 21970.0
+   },
+   {
+    "q": "2025Q3",
+    "backlog": 111000.0,
+    "newOrders": 14561.0
+   },
+   {
+    "q": "2025Q4",
+    "backlog": 119000.0,
+    "newOrders": 19658.0
+   },
+   {
+    "q": "2026Q1",
+    "backlog": 151000.0,
+    "newOrders": 41745.0
+   }
+  ]
+ },
+ "LS전선": {
+  "quarters": [
+   {
+    "q": "2021Q1",
+    "backlog": 21318.0,
+    "newOrders": 9124.0
+   },
+   {
+    "q": "2021Q2",
+    "backlog": 20672.0,
+    "newOrders": 10098.0
+   },
+   {
+    "q": "2021Q3",
+    "backlog": 22579.0,
+    "newOrders": 11701.0
+   },
+   {
+    "q": "2021Q4",
+    "backlog": 22796.0,
+    "newOrders": 11912.0
+   },
+   {
+    "q": "2022Q1",
+    "backlog": 26258.0,
+    "newOrders": 15180.0
+   },
+   {
+    "q": "2022Q2",
+    "backlog": 24113.0,
+    "newOrders": 9975.0
+   },
+   {
+    "q": "2022Q3",
+    "backlog": 24108.0,
+    "newOrders": 11483.0
+   },
+   {
+    "q": "2022Q4",
+    "backlog": 27219.0,
+    "newOrders": 10023.0
+   },
+   {
+    "q": "2023Q1",
+    "backlog": 29710.0,
+    "newOrders": 11655.0
+   },
+   {
+    "q": "2023Q2",
+    "backlog": 32536.0,
+    "newOrders": 11942.0
+   },
+   {
+    "q": "2023Q3",
+    "backlog": 30198.0,
+    "newOrders": 7620.0
+   },
+   {
+    "q": "2023Q4",
+    "backlog": 44363.0,
+    "newOrders": 23686.0
+   },
+   {
+    "q": "2024Q1",
+    "backlog": 51845.0,
+    "newOrders": 27424.0
+   },
+   {
+    "q": "2024Q2",
+    "backlog": 56216.0,
+    "newOrders": 24220.0
+   },
+   {
+    "q": "2024Q3",
+    "backlog": 57073.0,
+    "newOrders": 22301.0
+   },
+   {
+    "q": "2024Q4",
+    "backlog": 62741.0,
+    "newOrders": 25095.0
+   },
+   {
+    "q": "2025Q1",
+    "backlog": 63530.0,
+    "newOrders": 19963.0
+   },
+   {
+    "q": "2025Q2",
+    "backlog": 62197.0,
+    "newOrders": 23357.0
+   },
+   {
+    "q": "2025Q3",
+    "backlog": 66015.0,
+    "newOrders": 25169.0
+   },
+   {
+    "q": "2025Q4",
+    "backlog": 76300.0,
+    "newOrders": 31963.0
+   },
+   {
+    "q": "2026Q1",
+    "backlog": 85086.0,
+    "newOrders": 33799.0
+   }
+  ]
+ },
+ "LS": {
+  "quarters": [
+   {
+    "q": "2021Q1",
+    "backlog": 35319.0,
+    "newOrders": 24363.0
+   },
+   {
+    "q": "2021Q2",
+    "backlog": 39741.0,
+    "newOrders": 36706.0
+   },
+   {
+    "q": "2021Q3",
+    "backlog": 42357.0,
+    "newOrders": 33749.0
+   },
+   {
+    "q": "2021Q4",
+    "backlog": 43757.0,
+    "newOrders": 35642.0
+   },
+   {
+    "q": "2022Q1",
+    "backlog": 54757.0,
+    "newOrders": 40580.0
+   },
+   {
+    "q": "2022Q2",
+    "backlog": 53354.0,
+    "newOrders": 35607.0
+   },
+   {
+    "q": "2022Q3",
+    "backlog": 54875.0,
+    "newOrders": 34975.0
+   },
+   {
+    "q": "2022Q4",
+    "backlog": 47010.0,
+    "newOrders": 17463.0
+   },
+   {
+    "q": "2023Q1",
+    "backlog": 61962.0,
+    "newOrders": 42690.0
+   },
+   {
+    "q": "2023Q2",
+    "backlog": 66150.0,
+    "newOrders": 39683.0
+   },
+   {
+    "q": "2023Q3",
+    "backlog": 70491.0,
+    "newOrders": 44530.0
+   },
+   {
+    "q": "2023Q4",
+    "backlog": 86932.0,
+    "newOrders": 53396.0
+   },
+   {
+    "q": "2024Q1",
+    "backlog": 93954.0,
+    "newOrders": 41553.0
+   },
+   {
+    "q": "2024Q2",
+    "backlog": 97282.0,
+    "newOrders": 79648.0
+   },
+   {
+    "q": "2024Q3",
+    "backlog": 99157.0,
+    "newOrders": 7058.0
+   },
+   {
+    "q": "2024Q4",
+    "backlog": 111512.0,
+    "newOrders": 52622.0
+   },
+   {
+    "q": "2025Q1",
+    "backlog": 110729.0,
+    "newOrders": 43870.0
+   },
+   {
+    "q": "2025Q2",
+    "backlog": 117474.0,
+    "newOrders": 41662.0
+   },
+   {
+    "q": "2025Q3",
+    "backlog": 123530.0,
+    "newOrders": 45458.0
+   },
+   {
+    "q": "2025Q4",
+    "backlog": 149834.0,
+    "newOrders": 63927.0
+   },
+   {
+    "q": "2026Q1",
+    "backlog": 182681.0,
+    "newOrders": 93204.0
+   }
+  ]
+ }
+}

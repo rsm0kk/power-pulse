@@ -1,0 +1,21 @@
+# 비공개 — 절대 올리지 말 것
+secrets.json
+.env
+
+# 키가 평문으로 박힌 옛 배포 사본 (공개 저장소 금지)
+전력기기_대시보드_상대방배포/
+*.zip
+
+# 로컬 생성물 (Actions 가 매번 다시 만든다)
+cache/
+out/
+store.json
+build_log.txt
+ls2q.txt
+__pycache__/
+*.pyc
+
+# 편집기·세션
+.claude/
+Thumbs.db
+desktop.ini

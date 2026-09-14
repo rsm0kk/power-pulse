@@ -1,0 +1,1091 @@
+<!doctype html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>전력기기·전선 2Q26 복기 — 실적은 사상 최대, 주가는 고점 대비 반토막</title>
+<style>
+:root{
+  color-scheme: light;
+  --ink:#172033; --muted:#667085; --line:#d9e0e8; --soft-line:#e9edf2;
+  --paper:#ffffff; --canvas:#f3f6f9;
+  --navy:#172b4d; --navy-2:#223b66;
+  --blue:#175cd3; --blue-soft:#eaf2ff; --blue-ink:#285a9f;
+  --green:#087a55; --green-soft:#d3f2e3;
+  --red:#b42318; --red-soft:#fee4e2;
+  --amber:#8b4e00; --amber-soft:#ffe08a;
+  --orange:#b54708; --orange-soft:#fff1e7;
+  --shadow:0 12px 30px rgba(23,43,77,.08); --radius:12px;
+  --tt-bg:#ffffff; --tt-line:#c9d4e0;
+  --hero-border:#0f2343; --on-accent:#ffffff;
+  --c-rev:#175cd3; --c-op:#b42318; --c-bl:#087a55; --track:#d9e0e8; --dot-ring:#ffffff;
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --ink:#eaf1fa; --muted:#8fa4bd; --line:#243348; --soft-line:#1e2b3d;
+  --paper:#16202f; --canvas:#0d1420;
+  --navy:#101a29; --navy-2:#1a2942;
+  --blue:#69b0ff; --blue-soft:rgba(105,176,255,.16); --blue-ink:#9dcbff;
+  --green:#4bd1a0; --green-soft:rgba(75,209,160,.16);
+  --red:#ff7b6b; --red-soft:rgba(255,123,107,.16);
+  --amber:#ffc247; --amber-soft:rgba(255,194,71,.18);
+  --orange:#ff9a5c; --orange-soft:rgba(255,154,92,.16);
+  --shadow:0 12px 30px rgba(0,0,0,.35);
+  --tt-bg:#16202f; --tt-line:#2e405a;
+  --hero-border:#243348; --on-accent:#0d1420;
+  --c-rev:#69b0ff; --c-op:#ff7b6b; --c-bl:#4bd1a0; --track:#243348; --dot-ring:#16202f;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --ink:#eaf1fa; --muted:#8fa4bd; --line:#243348; --soft-line:#1e2b3d;
+    --paper:#16202f; --canvas:#0d1420;
+    --navy:#101a29; --navy-2:#1a2942;
+    --blue:#69b0ff; --blue-soft:rgba(105,176,255,.16); --blue-ink:#9dcbff;
+    --green:#4bd1a0; --green-soft:rgba(75,209,160,.16);
+    --red:#ff7b6b; --red-soft:rgba(255,123,107,.16);
+    --amber:#ffc247; --amber-soft:rgba(255,194,71,.18);
+    --orange:#ff9a5c; --orange-soft:rgba(255,154,92,.16);
+    --shadow:0 12px 30px rgba(0,0,0,.35);
+    --tt-bg:#16202f; --tt-line:#2e405a;
+    --hero-border:#243348; --on-accent:#0d1420;
+    --c-rev:#69b0ff; --c-op:#ff7b6b; --c-bl:#4bd1a0; --track:#243348; --dot-ring:#16202f;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--canvas);color:var(--ink);
+  font-family:Arial,"Malgun Gothic","Apple SD Gothic Neo",sans-serif;font-size:13px;line-height:1.35}
+button,input,select{font:inherit}
+button{color:inherit;cursor:pointer}
+.shell{width:min(1240px,calc(100% - 32px));margin:0 auto;padding:24px 0 20px}
+
+.hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:end;
+  padding:14px 16px;border:1px solid var(--hero-border);border-radius:var(--radius) var(--radius) 0 0;
+  background:linear-gradient(100deg,rgba(255,255,255,.06),transparent 45%),var(--navy);color:#fff}
+.eyebrow{margin:0 0 5px;color:#b9d1f5;font-size:12px;font-weight:700;letter-spacing:.1em}
+h1{margin:0;font-size:clamp(19px,2vw,25px);font-weight:750;line-height:1.2;letter-spacing:-.03em;word-break:keep-all}
+.hero-sub{margin:7px 0 0;color:rgba(255,255,255,.8);font-size:12px;word-break:keep-all}
+.as-of{min-width:158px;padding:7px 10px;border:1px solid rgba(255,255,255,.2);border-radius:10px;
+  background:rgba(255,255,255,.08);text-align:right}
+.as-of strong,.as-of span{display:block}
+.as-of strong{font-size:14px;font-variant-numeric:tabular-nums}
+.as-of span{color:#b9d1f5;font-size:11.5px}
+
+.control-panel{position:sticky;top:0;z-index:30;padding:8px 12px;border:1px solid var(--line);border-top:0;
+  border-radius:0 0 var(--radius) var(--radius);background:color-mix(in srgb,var(--paper) 97%,transparent);
+  box-shadow:0 8px 20px rgba(23,43,77,.06);backdrop-filter:blur(10px)}
+.control-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.section-label{flex:0 0 auto;color:var(--muted);font-size:12px;font-weight:700;letter-spacing:.04em}
+.chips{display:flex;gap:6px;flex-wrap:wrap;min-width:0}
+.chip{--chip-color:#344054;display:inline-flex;align-items:center;gap:6px;padding:6px 11px;
+  border:1px solid var(--line);border-radius:999px;background:var(--paper);font-size:12.5px;font-weight:700;
+  transition:border-color .14s,background .14s,transform .14s}
+.chip:hover{border-color:var(--chip-color);transform:translateY(-1px)}
+.chip[aria-pressed="true"]{border-color:var(--chip-color);
+  background:color-mix(in srgb,var(--chip-color) 16%,var(--paper));
+  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--chip-color) 55%,transparent)}
+.chip-dot{width:8px;height:8px;border-radius:50%;background:var(--chip-color)}
+.chip-count{color:var(--muted);font-size:11px;font-variant-numeric:tabular-nums}
+.spacer{flex:1 1 auto}
+.icon-btn{padding:6px 11px;border:1px solid var(--line);border-radius:999px;background:var(--paper);
+  font-size:12px;font-weight:700}
+.icon-btn:hover{border-color:var(--blue);color:var(--blue)}
+
+.grid{display:grid;gap:10px;margin-top:10px}
+.grid.cols-2{grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr)}
+.grid.cols-2e{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid.cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+
+.panel{padding:12px 14px 14px;border:1px solid var(--line);border-radius:var(--radius);
+  background:var(--paper);box-shadow:var(--shadow);min-width:0}
+.panel-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;
+  margin-bottom:10px;padding-bottom:7px;border-bottom:1px solid var(--soft-line)}
+.panel-title{margin:0;font-size:14px;font-weight:800;letter-spacing:-.015em;word-break:keep-all}
+.panel-unit{color:var(--muted);font-size:11px;font-weight:700;white-space:nowrap}
+
+.kpi-label{color:var(--muted);font-size:11.5px;font-weight:700}
+.kpi-value{margin-top:5px;font-size:21px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.kpi-value .u{margin-left:2px;font-size:11px;font-weight:700;color:var(--muted)}
+.kpi-note{margin-top:5px;color:var(--muted);font-size:11px;word-break:keep-all}
+
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+thead th{position:sticky;top:0;padding:7px 8px;border-bottom:1px solid var(--line);
+  background:color-mix(in srgb,var(--paper) 88%,var(--canvas));color:var(--muted);
+  font-size:11.5px;font-weight:800;text-align:right;white-space:nowrap;cursor:pointer;z-index:2}
+thead th:first-child,tbody td:first-child{text-align:left}
+thead th.no-sort{cursor:default}
+thead th .arw{color:var(--blue);font-size:10px}
+tbody td{padding:7px 8px;border-bottom:1px solid var(--soft-line);text-align:right;white-space:nowrap}
+tbody tr:hover{background:color-mix(in srgb,var(--blue) 5%,var(--paper))}
+tbody td.name{font-weight:700}
+tbody td.tl{text-align:left;white-space:normal;word-break:keep-all}
+.pos{color:var(--red);font-weight:700}
+.neg{color:var(--blue);font-weight:700}
+.flat{color:var(--muted)}
+.na{color:var(--muted);font-weight:400}
+
+.badge{display:inline-flex;align-items:center;gap:4px;padding:2px 7px;border-radius:999px;
+  font-size:10.5px;font-weight:800;white-space:nowrap}
+.badge.report{background:var(--blue-soft);color:var(--blue-ink)}
+.badge.external{background:var(--green-soft);color:var(--green)}
+.badge.estimate{background:var(--amber-soft);color:var(--amber)}
+.badge.unverified{background:var(--red-soft);color:var(--red)}
+
+.slider-zone{display:grid;gap:9px}
+.slider-row{display:grid;grid-template-columns:132px minmax(0,1fr) 78px;gap:9px;align-items:center}
+.slider-row label{color:var(--muted);font-size:12px;font-weight:700;word-break:keep-all}
+input[type=range]{width:100%;accent-color:var(--blue)}
+.slider-value{padding:4px 7px;border:1px solid var(--line);border-radius:8px;
+  background:color-mix(in srgb,var(--paper) 90%,var(--canvas));text-align:right;
+  font-size:12.5px;font-weight:800;font-variant-numeric:tabular-nums}
+.preset-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.preset{padding:5px 10px;border:1px solid var(--line);border-radius:999px;background:var(--paper);
+  color:var(--muted);font-size:11.5px;font-weight:700}
+.preset:hover{border-color:var(--blue);color:var(--blue)}
+.preset[aria-pressed="true"]{border-color:var(--blue);background:var(--blue);color:var(--on-accent)}
+
+svg.chart{width:100%;display:block;overflow:visible}
+.axis-line{stroke:var(--soft-line);stroke-width:1}
+.axis-text{fill:var(--muted);font-size:10.5px;font-family:inherit}
+.bar-label{fill:var(--ink);font-size:11px;font-weight:700;font-family:inherit}
+.hit{fill:transparent;cursor:crosshair}
+.b-rev{fill:var(--c-rev)} .b-op{fill:var(--c-op)} .b-bl{fill:var(--c-bl)}
+.b-track{fill:var(--track);opacity:.9}
+.b-fill{fill:var(--c-rev);opacity:.28}
+.b-dot{fill:var(--c-rev);stroke:var(--dot-ring);stroke-width:1.6}
+
+.tt{position:fixed;z-index:200;pointer-events:none;opacity:0;transition:opacity .1s;
+  padding:8px 10px;border:1px solid var(--tt-line);border-radius:9px;background:var(--tt-bg);
+  box-shadow:0 8px 22px rgba(23,43,77,.18);font-size:11.5px;max-width:290px;
+  font-variant-numeric:tabular-nums;color:var(--ink)}
+.tt b{display:block;margin-bottom:4px;font-size:12px}
+.tt .r{display:flex;align-items:center;gap:6px;justify-content:space-between;margin-top:2px}
+.tt .k{display:flex;align-items:center;gap:5px;color:var(--muted)}
+.tt .sw{width:8px;height:8px;border-radius:2px;flex:0 0 auto}
+.tt .v{font-weight:800}
+.tt .src{margin-top:6px;padding-top:5px;border-top:1px solid var(--soft-line);color:var(--muted);font-size:10.5px}
+
+.legend{display:flex;gap:12px;flex-wrap:wrap;margin:2px 0 8px;font-size:11.5px;color:var(--muted)}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+
+.note{margin:0;color:var(--muted);font-size:11.5px;line-height:1.6;word-break:keep-all}
+ul.tight{margin:0;padding-left:17px;line-height:1.65}
+ul.tight li{margin-bottom:5px;word-break:keep-all}
+ul.tight li b{color:var(--ink)}
+.kv{display:grid;grid-template-columns:auto minmax(0,1fr);gap:5px 12px;font-size:12px}
+.kv dt{color:var(--muted);font-weight:700;white-space:nowrap}
+.kv dd{margin:0;word-break:keep-all}
+.tagline{display:inline-block;padding:1px 6px;border-radius:5px;background:var(--blue-soft);
+  color:var(--blue-ink);font-size:10.5px;font-weight:800;margin-right:5px}
+.tagline.warn{background:var(--orange-soft);color:var(--orange)}
+.tagline.good{background:var(--green-soft);color:var(--green)}
+.callout{margin-top:9px;padding:9px 11px;border-left:3px solid var(--orange);border-radius:0 8px 8px 0;
+  background:var(--orange-soft);font-size:12px;line-height:1.55;word-break:keep-all}
+.callout b{color:var(--ink)}
+.card-note{padding:10px 11px;border:1px solid var(--soft-line);border-radius:9px;
+  background:color-mix(in srgb,var(--paper) 88%,var(--canvas));margin-bottom:8px}
+.card-note h4{margin:0 0 5px;font-size:12.5px;font-weight:800}
+.card-note p{margin:0;font-size:11.5px;color:var(--muted);line-height:1.6;word-break:keep-all}
+
+.source-note{margin-top:12px;padding:10px 12px;border:1px solid var(--soft-line);border-radius:10px;
+  background:color-mix(in srgb,var(--paper) 70%,var(--canvas));color:var(--muted);font-size:11px;line-height:1.6}
+.source-note b{color:var(--ink)}
+.source-note a{color:var(--blue)}
+.src-list{margin:6px 0 0;padding-left:16px;columns:2;column-gap:20px}
+.src-list li{margin-bottom:3px;break-inside:avoid}
+
+@media (max-width:900px){
+  .grid.cols-2,.grid.cols-2e{grid-template-columns:minmax(0,1fr)}
+  .grid.cols-4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid.cols-3{grid-template-columns:minmax(0,1fr)}
+  .src-list{columns:1}
+}
+@media (max-width:520px){
+  .hero{grid-template-columns:minmax(0,1fr)}
+  .grid.cols-4{grid-template-columns:minmax(0,1fr)}
+  .slider-row{grid-template-columns:104px minmax(0,1fr) 66px}
+}
+:where(button,a,input,th[data-k]):focus-visible{
+  outline:2px solid var(--blue);outline-offset:2px;border-radius:6px}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{transition-duration:.01ms !important;animation-duration:.01ms !important}
+  .chip:hover{transform:none}
+}
+@media print{
+  body{background:#fff}
+  .control-panel{position:static;box-shadow:none;backdrop-filter:none}
+  .panel{box-shadow:none;break-inside:avoid}
+  .preset-row,.chips,.icon-btn{display:none}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<header class="hero">
+  <div>
+    <p class="eyebrow">CAPITAL RESEARCH · 섹터 복기 노트</p>
+    <h1>전력기기·전선 2Q26 — 실적은 전 종목 사상 최대, 주가는 고점 대비 38~62% 조정</h1>
+    <p class="hero-sub">업황이 꺾인 게 아니라 멀티플이 꺾였다 · 국내 중전기 3사 + 전선 + 특수변압기 + 해저시공 9사 · 미국/국내/기타 해외 및 AI DC 연결고리</p>
+  </div>
+  <div class="as-of">
+    <span>기준일</span>
+    <strong id="asOf">2026-08-10</strong>
+    <span>주가 15:17 KST</span>
+  </div>
+</header>
+
+<nav class="control-panel">
+  <div class="control-row">
+    <span class="section-label">세부업종</span>
+    <div class="chips" id="chips"></div>
+    <span class="spacer"></span>
+    <span class="section-label" id="countLabel"></span>
+    <button class="icon-btn" id="themeBtn" type="button">🌙 다크</button>
+    <button class="icon-btn" id="csvBtn" type="button">⬇ CSV</button>
+  </div>
+</nav>
+
+<!-- KPI -->
+<section class="grid cols-4">
+  <div class="panel">
+    <div class="kpi-label">2Q26 합산 영업이익</div>
+    <div class="kpi-value" id="kpiOp">0<span class="u">억원</span></div>
+    <div class="kpi-note" id="kpiOpNote">실적 발표 완료 종목 합산</div>
+  </div>
+  <div class="panel">
+    <div class="kpi-label">2Q26말 합산 수주잔고</div>
+    <div class="kpi-value" id="kpiBl">0<span class="u">조원</span></div>
+    <div class="kpi-note">회사 공시 기준 단순합 · 기준(연결/부문·통화) 상이</div>
+  </div>
+  <div class="panel">
+    <div class="kpi-label">52주 고점 대비 평균</div>
+    <div class="kpi-value neg" id="kpiDd">0<span class="u">%</span></div>
+    <div class="kpi-note">필터 반영 · 종가 기준 단순평균</div>
+  </div>
+  <div class="panel">
+    <div class="kpi-label">LME 구리 (8/4)</div>
+    <div class="kpi-value pos">14,067<span class="u">$/t</span></div>
+    <div class="kpi-note">약 2,003만원/톤 · 전선 P 상승 / 변압기 원가 부담</div>
+  </div>
+</section>
+
+<!-- 한 줄 결론 -->
+<section class="grid">
+  <div class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title">복기 한 줄 — 2Q26에 실제로 일어난 일</h2>
+      <span class="panel-unit">Executive summary</span>
+    </div>
+    <ul class="tight" style="font-size:12.5px">
+      <li><b>실적은 예외 없이 사상 최대.</b> 발표를 마친 7개사 전부 분기 최대 매출 또는 최대 영업이익. 합산 영업이익 <b>8,842억원</b>. 중전기 3사(HD현대일렉트릭·효성중공업·LS ELECTRIC)의 2Q26 영업이익률은 각각 <b>25.1% / 15.7% / 11.3%</b>.</li>
+      <li><b>주가는 반대로 갔다.</b> 커버 9사 모두 52주 고점 대비 <b>-38%~-62%</b>. 2026년 5~6월 한 달 사이 HD현대일렉트릭 -37.4%, LS ELECTRIC -34.7%, 효성중공업 -30.5%. 원인은 수요 훼손이 아니라 <b>상반기 급등 후 차익실현 + AI 테마 내 수급 로테이션(반도체 대형주로 이동) + 전력기기 ETF 환매 바스켓 매도 + 밸류에이션 부담</b>.</li>
+      <li><b>수주는 오히려 가속.</b> 효성중공업은 연간 수주 가이던스를 8.4조 → <b>12조원(+42.9%)</b>으로 상향. LS ELECTRIC은 상반기 누적 수주 3조원으로 연간 가이던스의 75%를 반기에 소화. HD현대일렉트릭 2Q 수주 +44.6%.</li>
+      <li><b>AI DC가 이제 숫자로 찍히기 시작했다.</b> HD현대일렉트릭 데이터센터 매출 비중 <b>2025년 1.8% → 2026E 6.3% → 2027E 16.0%</b>. 글로벌 빅테크와 최대 1조1,212억원 장기공급 기본계약(2028년까지 북미 납품). LS ELECTRIC은 2Q에만 북미 DC 5건 수주.</li>
+      <li><b>관세는 결과적으로 우호적으로 정리됐다.</b> 2026-04-06 통관분부터 미국 232조 개편 — 금속 함량가치 기준 50%에서 완제품 전체가격 기준으로 바뀌되, 초고압 변압기 등 전력망 장비는 <b>2027-12-31까지 한시 15%</b>(표준 25% 대신).</li>
+      <li><b>단, 하단은 갈라졌다.</b> 대형주가 사상 최대를 찍는 동안 <b>제룡전기는 1Q26 매출 -30.9%, 영업이익 -63.4%</b>로 역성장. 미국 배전변압기 경쟁 심화 + DDP 조건상 관세 자체 부담(북미 비중 88~90%)이 직격. <b>초고압/대형은 여전히 공급자 우위, 배전/중소형은 이미 아니다.</b></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 2Q26 실적 -->
+<section class="grid">
+  <div class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title">2Q26 실적 — 국내 전력기기·전선 커버리지</h2>
+      <span class="panel-unit">단위: 억원, % · 헤더 클릭 정렬</span>
+    </div>
+    <div class="table-wrap">
+      <table id="tblEarn">
+        <thead><tr>
+          <th data-k="name">종목</th>
+          <th data-k="ticker">코드</th>
+          <th data-k="group">업종</th>
+          <th data-k="rev">2Q26 매출</th>
+          <th data-k="revYoY">YoY</th>
+          <th data-k="op">영업이익</th>
+          <th data-k="opYoY">YoY</th>
+          <th data-k="opm">OPM</th>
+          <th data-k="backlog">수주잔고</th>
+          <th class="no-sort">비고</th>
+          <th class="no-sort">출처</th>
+        </tr></thead>
+        <tbody id="tbEarn"></tbody>
+      </table>
+    </div>
+    <div class="callout" id="pendingNote"></div>
+  </div>
+</section>
+
+<!-- 차트: YoY + 수주잔고 -->
+<section class="grid cols-2e">
+  <div class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title">2Q26 매출·영업이익 증가율</h2>
+      <span class="panel-unit">전년동기 대비, %</span>
+    </div>
+    <div class="legend">
+      <span><i style="background:var(--c-rev)"></i>매출 YoY</span>
+      <span><i style="background:var(--c-op)"></i>영업이익 YoY</span>
+    </div>
+    <svg class="chart" id="chYoY" role="img" aria-label="2Q26 매출 및 영업이익 증가율"></svg>
+  </div>
+  <div class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title">2Q26말 수주잔고</h2>
+      <span class="panel-unit">단위: 조원</span>
+    </div>
+    <div class="legend"><span><i style="background:var(--c-bl)"></i>수주잔고</span></div>
+    <svg class="chart" id="chBl" role="img" aria-label="수주잔고"></svg>
+    <p class="note" style="margin-top:8px">HD현대일렉트릭은 달러 표기(84.9억달러)를 회사 발표 원화 환산치로 반영. 효성중공업은 연결 기준. LS ELECTRIC은 "7조 육박" 보도로 약 7.0조 처리. 회사별 집계 기준이 달라 단순 비교에는 한계.</p>
+  </div>
+</section>
+
+<!-- 수주잔고 소진 시나리오 -->
+<section class="grid cols-2">
+  <div class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title">수주잔고 → 향후 12개월 매출·이익 전환 시뮬레이터</h2>
+      <span class="panel-unit">잔고=공시 확인치 / 소진율·OPM=사용자 가정</span>
+    </div>
+    <div class="table-wrap">
+      <table id="tblSim">
+        <thead><tr>
+          <th>종목</th><th>수주잔고</th><th>12M 매출 전환</th><th>연환산 2Q26 매출</th>
+          <th>커버율</th><th>가정 OPM 적용 OP</th><th>2Q26 실제 OPM</th>
+        </tr></thead>
+        <tbody id="tbSim"></tbody>
+      </table>
+    </div>
+    <p class="note" style="margin-top:8px">잔고를 매출로 단순 치환하지 않기 위한 도구. <b>커버율</b>은 (잔고×소진율) ÷ (2Q26 매출×4). 100%를 넘으면 현재 분기 매출 속도보다 잔고 소진 속도가 빠르다는 뜻 = 증설 없이는 병목. 초고압 변압기는 납기 2~4년물이 섞여 있어 실제 소진율은 종목·제품 믹스별로 크게 다르다.</p>
+  </div>
+  <div class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title">가정 변수</h2>
+      <span class="panel-unit">실시간 재계산</span>
+    </div>
+    <div class="slider-zone">
+      <div class="slider-row">
+        <label for="burn">연간 잔고 소진율</label>
+        <input id="burn" type="range" min="20" max="80" step="1" value="45">
+        <output class="slider-value" id="burnOut">45%</output>
+      </div>
+      <div class="slider-row">
+        <label for="opmA">적용 OPM</label>
+        <input id="opmA" type="range" min="3" max="35" step="0.5" value="15">
+        <output class="slider-value" id="opmOut">15.0%</output>
+      </div>
+    </div>
+    <div class="preset-row" id="presets"></div>
+    <div class="card-note" style="margin-top:12px">
+      <h4>이 시뮬레이터를 쓰는 이유</h4>
+      <p>2Q26 리뷰에서 가장 흔한 오류가 "수주잔고 41조 = 매출 41조"로 읽는 것. 초고압 변압기는 수주–납품–검수까지 24~48개월이 걸리고, 매출은 진행률이 아니라 인도 시점에 인식되는 부분이 크다. 잔고 규모보다 <b>잔고를 매출로 바꿀 CAPA</b>가 실제 병목이며, 그래서 2026년 증설 일정(아래)이 실적 추정의 핵심 변수다.</p>
+    </div>
+    <div class="card-note">
+      <h4>확인된 증설 일정</h4>
+      <p><b>HD현대일렉트릭</b> 울산공장 증설 2026년 9월 완료 · 미국 앨라배마 제2공장 2억달러, 2027년 4월 준공(초고압 CAPA +50%, 765kV 시험·생산 가능, 연 약 2,000억원 매출 효과 기대)<br>
+      <b>효성중공업</b> 미국 멤피스 초고압변압기 공장 1.57억달러(약 2,300억원) 투자, 2028년까지 CAPA +50% 이상 → 미국 최대 규모. 차단기까지 현지생산 확대<br>
+      <b>LS전선</b> 미국 버지니아 체서피크 해저케이블 공장(LS그린링크) VCV 타워 착공, 2027년 하반기 완공 / 2028년 1Q 상업생산<br>
+      <b>대한전선</b> 당진 해저케이블 2공장 2027년 상반기 완공(345kV 외부망·525kV HVDC 해저) · 1.1만톤급 CLV 추가 확보<br>
+      <b>제룡전기</b> 2026년 3월 대전 2공장 매입</p>
+    </div>
+  </div>
+</section>
+
+<!-- 주가/밸류에이션 -->
+<section class="grid cols-2">
+  <div class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title">주가·밸류에이션 — 실적과 주가의 괴리</h2>
+      <span class="panel-unit">2026-08-10 15:17 KST · 헤더 클릭 정렬</span>
+    </div>
+    <div class="table-wrap">
+      <table id="tblPx">
+        <thead><tr>
+          <th data-k="name">종목</th><th data-k="price">현재가</th><th data-k="chg">전일비</th>
+          <th data-k="mcap">시가총액</th><th data-k="per">PER</th>
+          <th data-k="high52">52주 고점</th><th data-k="dd">고점대비</th><th data-k="low52">52주 저점</th>
+        </tr></thead>
+        <tbody id="tbPx"></tbody>
+      </table>
+    </div>
+    <p class="note" style="margin-top:8px">시가총액 단위: 억원. PER은 알파스퀘어 표기(후행 기준). <b>LS ELECTRIC은 주가·시총 정합상 액면분할이 반영된 수치</b>(시총 30.15조 ÷ 206,000원 ≈ 1.46억주)로, 52주 저점 50,600원도 분할 조정치. <b>매매 전 한국거래소·증권사 시세로 재확인 필요.</b></p>
+  </div>
+  <div class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title">52주 밴드 내 현재 위치</h2>
+      <span class="panel-unit">저점=0% / 고점=100%</span>
+    </div>
+    <svg class="chart" id="chBand" role="img" aria-label="52주 밴드 내 현재 주가 위치"></svg>
+    <p class="note" style="margin-top:8px">막대는 52주 저점~고점 구간, 원 표시가 현재가 위치. 전 종목이 밴드 중단 이하에 있다. 실적 서프라이즈가 나온 산일전기(8/10 +16.9%)조차 고점 대비 -46%.</p>
+  </div>
+</section>
+
+<!-- 미국 -->
+<section class="grid cols-2">
+  <div class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title">미국 — 국내 기업 실적으로 직결되는 라인</h2>
+      <span class="panel-unit">정책 / 수요 / 병목</span>
+    </div>
+    <ul class="tight">
+      <li><span class="tagline good">관세</span><b>232조 개편 (2026-04-03 산업부 발표, 4/6 00:01 EST 통관분부터)</b> — 기존 "철강·알루미늄·구리 함량가치에만 50%"에서 <b>완제품 전체 관세가격 기준</b>으로 과세방식 변경. 대신 산업기계·전력망 장비 등 일부 품목은 표준 25% 대신 <b>2027-12-31까지 한시 15%</b>. 한국 주력인 초고압 변압기 포함. 함량가치 산정 의무 폐지로 행정부담도 축소. 2026-07-01 후속 개편으로 일부 이동식 산업기계 추가.</li>
+      <li><span class="tagline warn">병목</span><b>변압기 리드타임</b> — 발전기 승압변압기(GSU) 1Q26 <b>160주 초과</b>(2024년 평균 143주). 일부 대용량 변압기는 <b>3~4년</b>(2020~21년엔 약 1년). 고압 차단기 2023년 77주 → 2025년 하반기 <b>125주</b>. 유틸리티·개발사는 5년 선발주, 노후 변압기 재생, 선불 결제, 공급처 다변화로 대응 중 → <b>한국 기업에 신규 진입 창구가 계속 열리는 구조</b>.</li>
+      <li><span class="tagline">수요</span><b>하이퍼스케일러 2026 capex</b> — Amazon $200B, Alphabet 상단 $205B, Meta 최대 $145B, Microsoft FY $120B+. 5대 합산 <b>$700~900B, 전년비 +36%</b>. 다만 2026-07 Alphabet의 capex 상향 발표 직후 주가 -7%, Amazon·Meta·Microsoft 동반 약세 — <b>시장은 이제 capex 증액을 호재로만 읽지 않는다.</b> 국내 전력기기 주가 조정의 배경 심리와 맞물린다.</li>
+      <li><span class="tagline">용량</span>Eaton 추산 <b>미국 DC 건설 중 32GW(약 70%가 AI), 총 파이프라인 백로그 228GW</b>. 미국 DC 용량은 현재 약 24GW → 2030년 110GW 전망, 2026년 중 약 12GW 신규 가동 예상.</li>
+      <li><span class="tagline warn">역풍</span>전력 인프라·전기 부품 부족으로 <b>계획된 미국 DC의 상당수가 지연·취소될 수 있다</b>는 보도. 변압기 가격은 향후 1년간 종류별 <b>4~10% 상승</b> 전망. 리드타임을 못 맞추면 프로젝트가 계통 접속 대기 짧은 2차 도시로 이동 → 발주 타이밍·지역 믹스 변동성.</li>
+    </ul>
+  </div>
+  <div class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title">글로벌 Peer 2Q26 — 업황 훼손 신호 없음</h2>
+      <span class="panel-unit">각사 발표 기준</span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>기업</th><th class="no-sort">분기</th><th class="no-sort" style="text-align:left">핵심 수치</th></tr></thead>
+        <tbody id="tbPeer"></tbody>
+      </table>
+    </div>
+    <p class="note" style="margin-top:8px">국내 3사와 직접 경쟁하거나(HVDC·초고압 변압기·배전반) 같은 전방(북미 유틸리티·하이퍼스케일러)을 공유하는 기업들. <b>수주·백로그 지표가 전부 가속</b>이며, 국내 전력기기 주가 조정이 펀더멘털 신호가 아니라는 근거로 쓸 수 있다.</p>
+    <div class="callout">
+      <b>단, 캐파 증설도 동시에 진행 중.</b> Hitachi Energy 미국 10억달러+ 투자(버지니아 South Boston 대형변압기 4.57억달러), Siemens Energy 중형 가스터빈 CAPA 연 50대(FY25)→약 80대(FY26), Nexans 3번째 포설선 Electra 2Q26 투입. 공급 부족이 영원하지 않다는 뜻 — <b>2028~29년 공급 정상화 시점의 마진 정상화가 이 섹터 멀티플의 최종 리스크</b>다.
+    </div>
+  </div>
+</section>
+
+<!-- 국내 + 기타 해외 -->
+<section class="grid cols-2e">
+  <div class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title">국내 — 정책·발주 파이프라인</h2>
+      <span class="panel-unit">전기본 / 특별법 / 한전</span>
+    </div>
+    <ul class="tight">
+      <li><b>AI 데이터센터 특별법</b> 2026-05-07 국회 본회의 통과 → 2026-06-09 공포 → <b>2027-03-10 시행</b>. 전력계통영향평가 150일·에너지사용계획 협의 90일·건축/소방 40일 이내 처리, 인허가 원스톱 + 타임아웃제(기한 내 미거부 시 처리 간주), 비수도권 AI DC는 전력계통영향평가 면제·시설기준 완화.</li>
+      <li><b>3대 메가프로젝트 전력수요</b> — 호남·영남 AI DC <b>18.4GW</b>(2035년까지) + 서남권 반도체 팹 <b>6.3GW</b> = 총 <b>24.7GW</b> 규모 전력설비 필요. 이 때문에 제12차 전기본(2026~2040)이 <b>수요전망부터 전면 재산정</b>, 발표가 9월 → 연말로 지연. 신규 원전 추가 여부가 쟁점.</li>
+      <li><b>한전 2026년 송·변전 투자비 9.6조원</b>. 서해안 HVDC "에너지 고속도로" 조기 추진으로 호남권 재생에너지 수용능력 12GW → <b>39GW</b> 확대. 호남–수도권 HVDC는 4GW급 2루트(2036 준공)에서 <b>2GW급 4루트(2031/2036/2038 단계 준공)</b>로 변경 — 발주가 잘게 쪼개져 앞당겨졌다는 점이 국내 업체엔 유리.</li>
+      <li><b>제11차 전기본</b>(2025-02-21 확정) 기준 2038년까지 태양광·풍력 설비 <b>+352%</b>, 약 <b>72.8조원</b> 투자 필요. 정부는 2027년까지 HVDC 변환설비 국산화 완료 목표 → 해저케이블 사업자 선정이 선행될 전망.</li>
+      <li><b>기후에너지부 2026-08-04 업무보고</b> — AI DC·반도체 전력망 선제 확충, <b>지역별 차등요금제</b> 및 AI DC 전용 요금제 도입 예고.</li>
+      <li><span class="tagline">수주 확인</span>대한전선, <b>500kV HVDC 동해안~동서울 건설공사</b> 수주. 국내 유일 CLV(해저케이블 포설선) 선대 구축.</li>
+    </ul>
+  </div>
+  <div class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title">기타 해외 — 유럽·중동·아시아</h2>
+      <span class="panel-unit">국내 기업 접점 기준</span>
+    </div>
+    <ul class="tight">
+      <li><span class="tagline">유럽</span><b>대한전선</b> WindEurope 2026(마드리드) 참가, HVDC 중심 해저케이블 토털 솔루션 제시. <b>산일전기</b>는 유럽 신재생용 특수변압기 수주 증가(IBK투자증권). <b>HD현대일렉트릭</b> 1Q26 유럽 매출 +17.0%.</li>
+      <li><span class="tagline warn">중동</span><b>HD현대일렉트릭 1Q26 배전기기 매출 -24.2%</b> — 중동 지정학 리스크로 저압차단기 납품이 이연된 영향. 중동은 상방보다 <b>타이밍 리스크</b>로 봐야 하는 국면. 다만 <b>LS빌드윈</b>(LS마린솔루션 자회사)은 사우디에서 초고압 지중케이블 공사를 수행 중.</li>
+      <li><span class="tagline good">아시아</span><b>LS마린솔루션</b> — 대만전력공사 해상풍력 해저케이블 매설(TPC2)과 아태 해저 통신케이블 설치가 반기 최대 실적을 견인. 자회사 LS빌드윈이 싱가포르·대만·사우디에서 초고압 지중케이블 공사. <b>대한전선</b>도 싱가포르 매출 확대.</li>
+      <li><span class="tagline">북미 현지화</span><b>LS그룹은 전력 4사(LS전선·LS ELECTRIC·가온전선·LS마린솔루션) 수직계열화</b>로 북미 제조–시공–배선을 묶는 전략. 버지니아 해저케이블 공장이 그 축.</li>
+      <li><span class="tagline">원자재</span>LME 구리 2026-08-04 <b>톤당 $14,066.5</b>(약 2,003만원). 전선업체는 원자재 연동 판가로 매출·평가이익에 유리하나, <b>변압기 업체에는 권선 원가 부담</b>. 대한전선 2Q26 OPM 5.1%가 중전기 대비 낮은 이유 중 하나.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 종목별 -->
+<section class="grid">
+  <div class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title">종목별 2Q26 관전 포인트 — 무엇이 확인됐고 무엇을 더 봐야 하나</h2>
+      <span class="panel-unit">필터 연동</span>
+    </div>
+    <div class="grid cols-3" id="cards" style="margin-top:0"></div>
+  </div>
+</section>
+
+<!-- 교차검증 + 캘린더 -->
+<section class="grid cols-2">
+  <div class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title">교차검증에서 뒤집힌 것 / 확인 불가 항목</h2>
+      <span class="panel-unit">원문 대조 결과</span>
+    </div>
+    <ul class="tight">
+      <li><b>제룡전기 "상반기 매출 1,425억(+86.7%)"은 2026년이 아니라 2024년 수치다.</b> 검색 요약이 연도를 섞어 2026 상반기로 제시했으나, 원문 확인 결과 2024년 상반기(대전공장 평균가동률 130%) 자료. 실제 2026년 흐름은 <b>1Q26 별도 매출 -30.9%, 영업이익 -63.4%</b>로 정반대. 이 하나를 놓치면 중소형 변압기 업황 판단이 통째로 뒤집힌다.</li>
+      <li><b>효성중공업 수주잔고는 2Q26말 17.5조원(연결).</b> 일부 매체가 1Q26말 20.2조원으로 집계했는데 이는 기준이 다른 것으로 보인다(분기 감소로 읽으면 오독). 본 노트는 <b>회사 발표 연결 기준 17.5조원(+63% YoY)</b>만 채택.</li>
+      <li><b>LS ELECTRIC의 3,190억원 북미 DC 계약 발주처는 블룸에너지(Bloom Energy)</b>이며, 최종 사용처가 뉴멕시코주 하이퍼스케일 DC. "빅테크 직수주"가 아니다. 별도로 <b>AWS와 1,700억원대 배전반 공급계약</b>이 확인된다. 두 건은 발주처가 다르므로 합산 시 주의.</li>
+      <li><b>HD현대일렉트릭 1조1,212억원 기본계약의 발주처는 "글로벌 빅테크"로만 공개</b>되고 사명은 미공시. 배전기기 5,539억 + 전력기기 5,673억, 2028년까지 북미 납품. <b>기본계약(최대 금액)이므로 확정 수주와 동일시하면 안 된다.</b></li>
+      <li><b>확인 불가</b> — ① 일진전기 2Q26 실적: <b>2026-08-18 발표 예정</b>(미공시). ② 제룡전기 2Q26/반기 실적: 반기보고서 법정기한(8/14) 전으로 <b>미확인</b>. ③ LS전선 2Q26 실적: 비상장으로 분기 공시 없음 — 2025년 연간 매출 7조5,882억 / 영업이익 2,798억(LS IR)만 확인. ④ 가온전선 2Q26 개별 실적 원문 미확인.</li>
+    </ul>
+  </div>
+  <div class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title">다음 확인 지점 — 캘린더 & 트래킹 지표</h2>
+      <span class="panel-unit">2026-08-10 이후</span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>시점</th><th class="no-sort" style="text-align:left">이벤트</th><th class="no-sort" style="text-align:left">왜 중요한가</th></tr></thead>
+        <tbody id="tbCal"></tbody>
+      </table>
+    </div>
+    <div class="card-note" style="margin-top:10px">
+      <h4>매달 볼 3가지</h4>
+      <p>① <b>관세청 변압기 품목별 대미 수출액</b> — 주가 조정기에 "국내 변압기 수출액 부진"이 하락 논리로 쓰였다. 월별 수출 금액·단가 반등 여부가 가장 빠른 확인 지표.<br>
+      ② <b>미국 GSU/차단기 리드타임</b> — 160주에서 더 늘면 공급자 우위 지속, 줄기 시작하면 마진 정상화 신호.<br>
+      ③ <b>하이퍼스케일러 분기 capex 가이던스 및 시장 반응</b> — 금액보다 <b>시장이 그 금액을 어떻게 받는지</b>가 국내 전력기기 멀티플을 좌우하는 국면.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="source-note">
+  <b>Source tiering</b> ·
+  <span class="badge external">외부확인</span> 회사 발표·IR·정부 보도자료 원문 확인 ·
+  <span class="badge report">리포트</span> 증권사 리포트에 명시된 수치 ·
+  <span class="badge estimate">추정</span> 가정 기반 추정치 ·
+  <span class="badge unverified">미검증</span> 근거 미확보(본 문서 미포함)<br>
+  <b>기준일</b> 2026-08-10 · 주가·시가총액은 알파스퀘어 15:17 KST 조회 기준이며 <b>매매 전 한국거래소·증권사 시세로 재확인</b> 필요 · 시뮬레이터의 소진율·OPM은 사용자 가정값으로 회사 가이던스가 아님 · 본 자료는 투자 판단의 참고 자료이며 투자 결과에 대한 책임 소재의 증빙으로 사용될 수 없습니다.
+  <ul class="src-list" id="srcList"></ul>
+</footer>
+
+</div>
+<div class="tt" id="tt"></div>
+
+<script>
+/* ========================= DATA ========================= */
+const DATA = {
+  asOf: "2026-08-10",
+  companies: [
+    { name:"HD현대일렉트릭", ticker:"267260", group:"중전기",
+      rev:11418, revYoY:26.0, op:2870, opYoY:37.3, opm:25.1,
+      backlog:124200, backlogNote:"$84.9억, +29.6% YoY",
+      price:751000, prev:762000, mcap:274679, per:38.08, low52:433500, high52:1430000,
+      grade:"external", memo:"북미 매출 47.5%·수주 59.2%·잔고 69.3%",
+      card:"2Q 영업이익률 25.1%로 커버리지 최고. 전력기기 5,359억(+10.7%), 배전기기 2,312억(+20.2%). DC 매출 비중 1.8%(25)→6.3%(26E)→16.0%(27E)로 회사가 명시적으로 제시했다는 점이 핵심 — 지금까지는 유틸리티 사이클이었고 지금부터가 DC 사이클. 울산 증설 9월 완료, 앨라배마 2공장 27년 4월. 확인할 것: 1.1조 기본계약의 실제 확정 전환율과 앨라배마 램프업 속도." },
+    { name:"효성중공업", ticker:"298040", group:"중전기",
+      rev:16870, revYoY:10.6, op:2643, opYoY:60.9, opm:15.7,
+      backlog:175000, backlogNote:"연결, +63% YoY",
+      price:2929000, prev:2832000, mcap:264071, per:31.94, low52:1073000, high52:4742000,
+      grade:"external", memo:"상반기 중공업 신규수주 71%가 미국",
+      card:"영업이익 +60.9%로 커버리지 최고 증가율, 분기 최대. OPM 10.8%→15.7%(+4.9%p)는 미국 고마진 잔고 믹스 개선이 실제로 손익에 찍히기 시작했다는 증거. 연간 수주 가이던스를 8.4조→12조로 42.9% 상향한 것은 2Q26 섹터 전체에서 가장 공격적인 시그널. 확인할 것: 건설부문 손익 기여도(미공개)와 멤피스 증설 CAPA 램프." },
+    { name:"LS ELECTRIC", ticker:"010120", group:"중전기",
+      rev:15770, revYoY:32.0, op:1785, opYoY:64.0, opm:11.3,
+      backlog:70000, backlogNote:"약 7조, 분기말",
+      price:206000, prev:201000, mcap:301500, per:48.15, low52:50600, high52:335000,
+      grade:"external", memo:"2Q 신규수주 약 2.1조(분기 최대)",
+      card:"컨센서스 영업이익 1,640억을 약 9% 상회. 전력 부문 매출 1조915억(+34.4%)·OP 1,374억(+50.8%), 자동화 매출 979억(+13.6%)·OP 94억(+108.9%)으로 자동화까지 턴. 상반기 누적 수주 3조로 연간 가이던스 75% 조기 달성. 북미 DC는 블룸에너지향 3,190억, AWS 배전반 1,700억대 등 2Q에만 5건. 확인할 것: OPM 11.3%가 3사 중 가장 낮다 — 배전반 믹스 확대가 마진에 어떻게 작용하는지." },
+    { name:"대한전선", ticker:"001440", group:"전선",
+      rev:11987, revYoY:30.8, op:608, opYoY:113.0, opm:5.1,
+      backlog:40629, backlogNote:"창사 첫 4조 돌파",
+      price:29000, prev:27100, mcap:53113, per:50.70, low52:14740, high52:75900,
+      grade:"external", memo:"2Q 신규수주 7,272억",
+      card:"매출·영업이익 모두 분기 최대. 상반기 영업이익 1,213억(+117.8%)으로 2025년 연간(1,286억)의 94%를 반기에 달성. 수주잔고 첫 4조 돌파. 다만 2Q 신규수주 7,272억은 잔고 4조 대비 소진 속도를 못 따라가는 수준이라 3Q 수주 모멘텀이 관건. OPM 5.1%는 구리 원가와 산업전선 믹스 탓. 확인할 것: 당진 해저 2공장(27년 상반기) 전 대형 HVDC 해저 수주 확보 여부." },
+    { name:"산일전기", ticker:"062040", group:"특수·중소변압기",
+      rev:1642, revYoY:28.0, op:622, opYoY:34.3, opm:37.9,
+      backlog:5567, backlogNote:"신규수주 2,435억, +163.4%",
+      price:183900, prev:157300, mcap:48201, per:26.60, low52:101700, high52:341000,
+      grade:"external", memo:"8/10 실적 발표, 주가 +16.9%",
+      card:"OPM 37.9%로 국내 전력기기 통틀어 압도적 1위. 결정적 디테일은 믹스 — 신재생·DC·ESS용 특수변압기 매출 1,324억(+51.7%)인 반면 전력망용 변압기는 266억(-30.6%). 즉 이 회사의 성장은 유틸리티가 아니라 전적으로 DC/신재생이다. 신규수주 +163.4%. IBK투자증권 목표주가 18만→22만원 상향. 확인할 것: 잔고 5,567억 대비 CAPA와 미국 DC 후속 수주 지속성." },
+    { name:"제룡전기", ticker:"033100", group:"특수·중소변압기",
+      rev:null, revYoY:null, op:null, opYoY:null, opm:null,
+      backlog:null, backlogNote:null,
+      price:48150, prev:48150, mcap:7228, per:9.60, low52:31850, high52:93800,
+      grade:"external", memo:"2Q26 미공시 (반기보고서 8/14 기한)",
+      card:"섹터에서 유일하게 역성장. 1Q26 별도 매출 347억(-30.9%), 영업이익 59억(-63.4%), OPM 32%→17%. 원인은 ① 글로벌 공급 안정화로 미국 배전변압기 경쟁 심화 ② 선제 투자에 따른 고정비 증가 ③ DDP 조건이라 관세를 회사가 직접 부담(북미 비중 88~90%). PSE&G 531억 재수주, 대전 2공장 매입은 긍정 요인. PER 9.6배는 섹터 최저지만 이익 감소가 분모를 바꾸는 중. <b>이 종목이 배전/중소형 세그먼트의 조기 경보다.</b>" },
+    { name:"일진전기", ticker:"103590", group:"전선",
+      rev:null, revYoY:null, op:null, opYoY:null, opm:null,
+      backlog:null, backlogNote:null,
+      price:62600, prev:58300, mcap:27800, per:24.97, low52:33500, high52:147900,
+      grade:"external", memo:"2Q26 발표 예정 2026-08-18",
+      card:"2Q26 미발표. 1Q26 연결 매출 5,061억, 매출 +10.6%·영업이익 +49.1%·순이익 +57.0%(YoY). 2025년 연간 매출 2조4,460억·영업이익 1,512억(+30%/+90%). 전선과 변압기를 함께 하는 구조라 구리 가격과 미국 변압기 수요를 동시에 탄다. 시장 컨센서스 2Q 매출 5,623억. 8/18 발표가 이번 섹터 실적 시즌의 마지막 확인 지점." },
+    { name:"LS에코에너지", ticker:"229640", group:"전선",
+      rev:3502, revYoY:40.0, op:253, opYoY:7.0, opm:7.2,
+      backlog:null, backlogNote:null,
+      price:47500, prev:47500, mcap:13919, per:25.15, low52:32000, high52:109800,
+      grade:"external", memo:"상반기 매출 6,358억(+32.8%)",
+      card:"2Q 매출 +40%로 외형은 강한데 영업이익은 +7%에 그쳐 OPM이 희석됐다(상반기 매출 +32.8% vs 영업이익 +16.5%). 베트남 기반 전선업으로 구리 가격 급등 국면에서 판가 전가 시차가 마진을 눌렀을 가능성. 확인할 것: 마진 희석이 일시적 원자재 래깅인지 믹스 악화인지." },
+    { name:"LS마린솔루션", ticker:"060370", group:"해저시공",
+      rev:954, revYoY:43.0, op:61, opYoY:79.0, opm:6.4,
+      backlog:6600, backlogNote:"상반기말 약 6,600억",
+      price:null, prev:null, mcap:null, per:null, low52:null, high52:null,
+      grade:"external", memo:"순이익 +382.2%",
+      card:"반기 기준 매출·영업이익·순이익 모두 역대 최대(상반기 매출 1,482억 +33%, 영업이익 103억 +61%, 순이익 131억 +217%). 대만전력공사 해상풍력 해저케이블 매설(TPC2)과 아태 해저 통신케이블이 견인. 자회사 LS빌드윈이 싱가포르·대만·사우디 초고압 지중케이블 공사 수행. 해저케이블은 케이블 제조사가 아니라 <b>포설선(CLV) 보유 시공사가 병목</b>이라는 점에서 구조적 수혜." },
+    { name:"LS (지주)", ticker:"006260", group:"전선",
+      rev:null, revYoY:null, op:null, opYoY:null, opm:null,
+      backlog:null, backlogNote:null,
+      price:331000, prev:317000, mcap:98904, per:23.65, low52:148600, high52:604000,
+      grade:"external", memo:"LS전선 2Q26 비상장 미공시",
+      card:"LS전선(비상장)의 2Q26 분기 실적은 공시 의무가 없어 확인 불가. LS IR 확인 가능한 최신 수치는 2025년 LS전선 매출 7조5,882억·영업이익 2,798억. LS 지주 자체 2Q26 실적도 본 기준일 시점 미확인. 다만 상장 자회사 3사(LS ELECTRIC 사상 최대, LS에코에너지·LS마린솔루션 반기 최대)가 모두 최대 실적을 냈고 버지니아 해저케이블 공장이 진행 중이라, 지주 NAV 관점에선 확인된 부분만으로도 개선 방향이 명확." }
+  ],
+  peers: [
+    { n:"GE Vernova", q:"2Q26", t:"수주 $24.2B(+88%), 백로그 $176B(2027년 $200B 목표). Electrification 수주 organic +66% $6.3B·매출 +68% $3.6B, 상반기 DC 수주 $5B+. 2026 가이던스 상향(매출 $45.5~46.5B, FCF $11.5~12.5B). 가스 20GW 신규 수주로 가스 백로그 53GW. Wind은 수주 -40%, EBITDA -$275M." },
+    { n:"Eaton", q:"2Q26", t:"Electrical Americas 매출 $4.0B(organic +18%), OPM 27.5%. 수주 R12M +41%, 백로그 +33%. Electrical Global 백로그 +103%. DC 매출 +65%(시장 성장률 23% 대비), DC 수주 약 +240%. 연간 organic 성장 가이던스 9~11% → 11~13% 상향." },
+    { n:"Siemens Energy", q:"FY26 3Q", t:"수주 €17.9B 사상 최대, 백로그 €162B, B/B 1.57. Grid Technologies 수주 €5.4B(+28%), 백로그 €51B, 매출 €3.6B(+29%), 특별항목 전 이익 €722M(마진 19.9%). 전사 매출 comparable +18.5% €11.4B." },
+    { n:"Nexans", q:"H1 26", t:"조정 백로그 €7.7B(Great Sea Interconnector €1.2B 포함), 2028년까지 가시성. PWR-Transmission adj EBITDA €106.5M(+21.2%), 마진 11.8%→13.7%. Electrification organic +4.5%, adj EBITDA 마진 13.2%. 3번째 포설선 Electra 2Q26 예정대로 투입. 연간 가이던스 상향." },
+    { n:"Hitachi Energy", q:"2026", t:"미국 제조 10억달러+ 투자 발표. 버지니아 South Boston 대형 전력변압기 공장 4.57억달러. 노스캐롤라이나 1,000만달러 추가 증설. 'speed-to-power' 캠페인으로 북미 확장." }
+  ],
+  calendar: [
+    { d:"08-14", e:"제룡전기 반기보고서 법정기한", w:"배전/중소형 변압기 세그먼트의 2Q 저점 확인. 1Q의 -63% 영업이익이 이어지는지, 관세 부담이 판가에 전가되기 시작했는지." },
+    { d:"08-18", e:"일진전기 2Q26 실적 발표", w:"섹터 실적 시즌 마지막 퍼즐. 컨센 매출 5,623억. 전선+변압기 겸업이라 구리 급등이 마진에 어떻게 작용했는지 읽을 수 있는 유일한 표본." },
+    { d:"8월 중", e:"LS 지주 2Q26 실적", w:"LS전선 실적을 간접 확인할 수 있는 유일한 창구. 버지니아 공장 진척과 북미 수주 코멘트." },
+    { d:"9월", e:"HD현대일렉트릭 울산공장 증설 완료", w:"국내 초고압 CAPA 증설분이 4Q26부터 매출로 전환되는지. 잔고 소진율의 실질 상향 여부." },
+    { d:"9~12월", e:"제12차 전기본 확정", w:"AI DC 18.4GW + 반도체 6.3GW = 24.7GW 반영 수준과 신규 원전·송전망 계획. 국내 발주 규모의 상한을 정하는 문서." },
+    { d:"4Q26", e:"하이퍼스케일러 2027 capex 가이던스", w:"2026년 $700~900B의 다음 스텝. 증액 자체보다 시장 반응이 섹터 멀티플을 좌우." },
+    { d:"2027-03-10", e:"AI 데이터센터 특별법 시행", w:"국내 DC 인허가 병목 해소 → 국내향 배전반·변압기 발주 본격화 시점." },
+    { d:"2027-04", e:"HD현대일렉트릭 앨라배마 2공장 준공", w:"765kV 현지 생산 개시. 관세·물류 우회와 연 약 2,000억원 매출 효과." },
+    { d:"2027-12-31", e:"미국 232조 한시 15% 관세 종료 예정", w:"표준 25% 복귀 시 미국 직수출분 원가 구조 변화. 현지 생산 비중이 높은 업체와의 격차 확대 트리거." }
+  ],
+  sources: [
+    ["HD현대일렉트릭 2Q26 실적","businesspost.co.kr/BP?command=article_view&num=443322"],
+    ["HD현대일렉트릭 DC 전략·부문별","hansbiz.co.kr/news/articleView.html?idxno=854049"],
+    ["HD현대일렉트릭 빅테크 1.1조 계약","biz.heraldcorp.com/article/10795794"],
+    ["효성중공업 2Q26 실적·수주잔고","bloter.net/news/articleView.html?idxno=669735"],
+    ["효성중공업 미국 시장·가이던스","zdnet.co.kr/view/?no=20260731164505"],
+    ["효성 멤피스 증설","hyosung.com/kr/newsroom/view/19022"],
+    ["LS ELECTRIC 2Q26 실적","thelec.kr/news/articleView.html?idxno=59940"],
+    ["LS ELECTRIC 블룸에너지 수주","v.daum.net/v/20260429094546630"],
+    ["대한전선 2Q26 실적","mt.co.kr/industry/2026/07/30/2026073015311295628"],
+    ["산일전기 2Q26 실적·목표가","etnews.com/20260810000194"],
+    ["LS에코에너지·LS마린솔루션 반기","bloter.net/news/articleView.html?idxno=670057"],
+    ["일진전기 실적 발표 일정·컨센","kr.investing.com/equities/iljin-electric-co-earnings"],
+    ["제룡전기 1Q26 실적 요약","comp.wisereport.co.kr/company/c1010001.aspx?cmp_cd=033100"],
+    ["LS전선 2025년 실적 (LS IR)","lsholdings.com/ko/ir/investment"],
+    ["미국 232조 관세 개편 (산업부)","motir.go.kr/kor/article/ATCL3f49a5a8c/171691/view"],
+    ["대형 변압기 관세 25→15% 보도","v.daum.net/v/20260628072105404"],
+    ["변압기 리드타임 160주 (Reuters 계열)","powermag.com/transformers-in-2026-shortage-scramble-or-self-inflicted-crisis/"],
+    ["하이퍼스케일러 capex·시장 반응","cnbc.com/2026/07/28/hyperscalers-face-higher-capex-scrutiny-after-alphabet-report-panned.html"],
+    ["GE Vernova 2Q26","gevernova.com/news/articles/ge-vernova-releases-second-quarter-2026-financial-results"],
+    ["Eaton 2Q26","eaton.com/us/en-us/company/news-insights/news-releases/2026/eaton-reports-record-second-quarter-2026-results.html"],
+    ["Siemens Energy FY26 Q3","siemens-energy.com/global/en/home/press-releases/earnings-release-q3-fy-2026.html"],
+    ["Nexans H1 2026","globenewswire.com/news-release/2026/07/29/3334962/0/en/2026-Half-year-results-Nexans.html"],
+    ["Hitachi Energy 미국 10억달러 투자","industryweek.com/leadership/companies-executives/news/55315910/"],
+    ["AI 데이터센터 특별법","speedykorea.com/blog/korea-aidc-special-law"],
+    ["제12차 전기본 지연·메가프로젝트","fnnews.com/news/202607070602409711"],
+    ["한전 송변전 투자 9.6조·서해안 HVDC","economy21.co.kr/news/articleView.html?idxno=1016204"],
+    ["제11차 전기본 확정 (정책브리핑)","korea.kr/briefing/pressReleaseView.do?newsId=156675471"],
+    ["전력기기 주가 조정 원인","hankyung.com/article/202607022402i"],
+    ["LME 구리 시세","theguru.co.kr/news/article.html?no=105405"],
+    ["주가·시총·PER (알파스퀘어)","alphasquare.co.kr"]
+  ],
+  presets: [
+    { label:"보수 (35% / 8%)", burn:35, opm:8 },
+    { label:"기준 (45% / 15%)", burn:45, opm:15 },
+    { label:"낙관 (60% / 20%)", burn:60, opm:20 }
+  ]
+};
+
+const GRADE_LABEL = { report:"리포트", external:"외부확인", estimate:"추정", unverified:"미검증" };
+const GROUP_COLOR = { "중전기":"#175cd3", "전선":"#b54708", "특수·중소변압기":"#087a55", "해저시공":"#7a5af8" };
+
+const state = { group:"전체", burn:45, opm:15, sortE:{k:"op",dir:-1}, sortP:{k:"dd",dir:1} };
+
+/* ========================= UTIL ========================= */
+const nf = (v,d=1)=> v===null||v===undefined||Number.isNaN(v) ? "—"
+  : Number(v).toLocaleString("ko-KR",{minimumFractionDigits:d,maximumFractionDigits:d});
+const sgn = (v,d=1)=> v===null||v===undefined ? "—" : (v>0?"+":v<0?"−":"")+nf(Math.abs(v),d);
+const tone = v => v===null||v===undefined ? "na" : (v>0?"pos":v<0?"neg":"flat");
+const filtered = ()=> state.group==="전체" ? DATA.companies : DATA.companies.filter(c=>c.group===state.group);
+const withEarn = arr => arr.filter(c=>c.op!==null);
+const withPx   = arr => arr.filter(c=>c.price!==null);
+const dd = c => (c.price!==null&&c.high52) ? (c.price/c.high52-1)*100 : null;
+const bandPos = c => (c.price!==null&&c.high52&&c.low52) ? (c.price-c.low52)/(c.high52-c.low52)*100 : null;
+const chg = c => (c.price!==null&&c.prev) ? (c.price/c.prev-1)*100 : null;
+
+/* ========================= TOOLTIP ========================= */
+const tt = document.getElementById("tt");
+function showTT(evt, html){
+  tt.innerHTML = html; tt.style.opacity = "1";
+  const pad = 14, w = tt.offsetWidth, h = tt.offsetHeight;
+  let x = evt.clientX + pad, y = evt.clientY + pad;
+  if (x + w > window.innerWidth - 8) x = evt.clientX - w - pad;
+  if (y + h > window.innerHeight - 8) y = evt.clientY - h - pad;
+  if (x < 8) x = 8; if (y < 8) y = 8;
+  tt.style.left = x+"px"; tt.style.top = y+"px";
+}
+function hideTT(){ tt.style.opacity = "0"; }
+
+/* ========================= CHIPS / PRESETS ========================= */
+function renderChips(){
+  const host = document.getElementById("chips"); host.innerHTML = "";
+  const groups = ["전체", ...new Set(DATA.companies.map(c=>c.group))];
+  groups.forEach(g=>{
+    const n = g==="전체" ? DATA.companies.length : DATA.companies.filter(c=>c.group===g).length;
+    const b = document.createElement("button");
+    b.type="button"; b.className="chip";
+    b.style.setProperty("--chip-color", g==="전체" ? "#172b4d" : (GROUP_COLOR[g]||"#344054"));
+    b.setAttribute("aria-pressed", String(state.group===g));
+    b.innerHTML = `<span class="chip-dot"></span>${g}<span class="chip-count">${n}</span>`;
+    b.addEventListener("click", ()=>{ state.group=g; render(); });
+    host.appendChild(b);
+  });
+}
+function renderPresets(){
+  const host = document.getElementById("presets"); host.innerHTML = "";
+  DATA.presets.forEach(p=>{
+    const b = document.createElement("button");
+    b.type="button"; b.className="preset"; b.textContent = p.label;
+    b.setAttribute("aria-pressed", String(state.burn===p.burn && state.opm===p.opm));
+    b.addEventListener("click", ()=>{
+      state.burn=p.burn; state.opm=p.opm;
+      document.getElementById("burn").value=String(p.burn);
+      document.getElementById("opmA").value=String(p.opm);
+      document.getElementById("burnOut").textContent=p.burn+"%";
+      document.getElementById("opmOut").textContent=nf(p.opm,1)+"%";
+      render();
+    });
+    host.appendChild(b);
+  });
+}
+
+/* ========================= KPI ========================= */
+function renderKpi(){
+  const rows = filtered();
+  const e = withEarn(rows);
+  const sumOp = e.reduce((a,c)=>a+c.op,0);
+  const bl = rows.filter(c=>c.backlog!==null).reduce((a,c)=>a+c.backlog,0)/10000;
+  const dds = rows.map(dd).filter(v=>v!==null);
+  const avgDd = dds.length ? dds.reduce((a,b)=>a+b,0)/dds.length : null;
+  document.getElementById("kpiOp").innerHTML = `${nf(sumOp,0)}<span class="u">억원</span>`;
+  document.getElementById("kpiOpNote").textContent = `${e.length}개사 합산 · 미발표 ${rows.length-e.length}개사 제외`;
+  document.getElementById("kpiBl").innerHTML = `${nf(bl,1)}<span class="u">조원</span>`;
+  const el = document.getElementById("kpiDd");
+  el.innerHTML = `${sgn(avgDd,1)}<span class="u">%</span>`;
+  el.className = "kpi-value " + tone(avgDd);
+  document.getElementById("countLabel").textContent = `${rows.length}개 종목`;
+}
+
+/* ========================= TABLES ========================= */
+function sortRows(rows, s){
+  return rows.slice().sort((a,b)=>{
+    let va, vb;
+    if (s.k==="dd"){ va=dd(a); vb=dd(b); }
+    else if (s.k==="chg"){ va=chg(a); vb=chg(b); }
+    else { va=a[s.k]; vb=b[s.k]; }
+    if (va===null||va===undefined) return 1;
+    if (vb===null||vb===undefined) return -1;
+    if (typeof va==="string") return va.localeCompare(vb,"ko")*s.dir;
+    return (va-vb)*s.dir;
+  });
+}
+function headArrows(tblId, s){
+  document.querySelectorAll(`#${tblId} thead th[data-k]`).forEach(th=>{
+    const base = th.textContent.replace(/[▲▼]\s*$/,"").trim();
+    th.innerHTML = base + (th.dataset.k===s.k ? ` <span class="arw">${s.dir===1?"▲":"▼"}</span>` : "");
+  });
+}
+function renderEarn(){
+  const tb = document.getElementById("tbEarn"); tb.innerHTML="";
+  sortRows(filtered(), state.sortE).forEach(c=>{
+    const tr = document.createElement("tr");
+    const blTxt = c.backlog===null ? `<span class="na">—</span>` : nf(c.backlog,0);
+    tr.innerHTML = `
+      <td class="name">${c.name}</td>
+      <td class="na">${c.ticker}</td>
+      <td class="na" style="text-align:right">${c.group}</td>
+      <td>${c.rev===null?'<span class="na">미공시</span>':nf(c.rev,0)}</td>
+      <td class="${tone(c.revYoY)}">${sgn(c.revYoY,1)}${c.revYoY===null?"":"%"}</td>
+      <td>${c.op===null?'<span class="na">미공시</span>':nf(c.op,0)}</td>
+      <td class="${tone(c.opYoY)}">${sgn(c.opYoY,1)}${c.opYoY===null?"":"%"}</td>
+      <td>${c.opm===null?'<span class="na">—</span>':nf(c.opm,1)+"%"}</td>
+      <td>${blTxt}</td>
+      <td class="tl na" style="font-size:11.5px">${c.memo||""}</td>
+      <td><span class="badge ${c.grade}">${GRADE_LABEL[c.grade]}</span></td>`;
+    tb.appendChild(tr);
+  });
+  headArrows("tblEarn", state.sortE);
+  const pend = filtered().filter(c=>c.op===null).map(c=>c.name);
+  document.getElementById("pendingNote").innerHTML = pend.length
+    ? `<b>미공시 ${pend.length}개사:</b> ${pend.join(", ")} — 빈칸을 추정치로 채우지 않았다. 일진전기는 2026-08-18 발표 예정, 제룡전기는 반기보고서 법정기한(8/14) 전, LS전선·LS 지주는 분기 공시 대상 아님 또는 본 기준일 미확인.`
+    : `<b>필터 내 전 종목 실적 공시 완료.</b>`;
+}
+function renderPx(){
+  const tb = document.getElementById("tbPx"); tb.innerHTML="";
+  sortRows(withPx(filtered()), state.sortP).forEach(c=>{
+    const d = dd(c), ch = chg(c);
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td class="name">${c.name}</td>
+      <td>${nf(c.price,0)}</td>
+      <td class="${tone(ch)}">${sgn(ch,2)}${ch===null?"":"%"}</td>
+      <td>${nf(c.mcap,0)}</td>
+      <td>${c.per===null?'<span class="na">—</span>':nf(c.per,2)+"x"}</td>
+      <td class="na">${nf(c.high52,0)}</td>
+      <td class="${tone(d)}">${sgn(d,1)}%</td>
+      <td class="na">${nf(c.low52,0)}</td>`;
+    tb.appendChild(tr);
+  });
+  headArrows("tblPx", state.sortP);
+}
+function renderSim(){
+  const tb = document.getElementById("tbSim"); tb.innerHTML="";
+  const rows = filtered().filter(c=>c.backlog!==null);
+  if (!rows.length){ tb.innerHTML = `<tr><td colspan="7" class="tl na">필터 내 수주잔고 공시 종목 없음</td></tr>`; return; }
+  rows.forEach(c=>{
+    const conv = c.backlog * state.burn/100;
+    const ann = c.rev!==null ? c.rev*4 : null;
+    const cov = ann ? conv/ann*100 : null;
+    const opSim = conv * state.opm/100;
+    tb.innerHTML += `<tr>
+      <td class="name">${c.name}</td>
+      <td>${nf(c.backlog,0)}</td>
+      <td>${nf(conv,0)}</td>
+      <td>${ann===null?'<span class="na">—</span>':nf(ann,0)}</td>
+      <td class="${cov===null?"na":(cov>100?"pos":"flat")}">${cov===null?"—":nf(cov,0)+"%"}</td>
+      <td>${nf(opSim,0)}</td>
+      <td class="na">${c.opm===null?"—":nf(c.opm,1)+"%"}</td>
+    </tr>`;
+  });
+}
+function renderPeer(){
+  const tb = document.getElementById("tbPeer"); tb.innerHTML="";
+  DATA.peers.forEach(p=>{
+    tb.innerHTML += `<tr><td class="name">${p.n}</td><td class="na">${p.q}</td>
+      <td class="tl" style="font-size:11.5px;line-height:1.55">${p.t}</td></tr>`;
+  });
+}
+function renderCal(){
+  const tb = document.getElementById("tbCal"); tb.innerHTML="";
+  DATA.calendar.forEach(x=>{
+    tb.innerHTML += `<tr><td class="name" style="text-align:right;white-space:nowrap">${x.d}</td>
+      <td class="tl" style="font-weight:700;font-size:11.5px">${x.e}</td>
+      <td class="tl na" style="font-size:11.5px;line-height:1.55">${x.w}</td></tr>`;
+  });
+}
+function renderCards(){
+  const host = document.getElementById("cards"); host.innerHTML="";
+  filtered().forEach(c=>{
+    const d = dd(c);
+    const div = document.createElement("div");
+    div.className = "card-note"; div.style.marginBottom = "0";
+    div.innerHTML = `<h4>${c.name} <span class="na" style="font-weight:400;font-size:11px">${c.ticker}</span>
+      ${d!==null?`<span class="${tone(d)}" style="float:right;font-size:11.5px">고점대비 ${sgn(d,0)}%</span>`:""}</h4>
+      <p>${c.card}</p>`;
+    host.appendChild(div);
+  });
+}
+function renderSources(){
+  const ul = document.getElementById("srcList"); ul.innerHTML="";
+  DATA.sources.forEach(([t,u])=>{
+    ul.innerHTML += `<li>${t} — <a href="https://${u}" target="_blank" rel="noopener">${u.split("/")[0]}</a></li>`;
+  });
+}
+
+/* ========================= CHARTS ========================= */
+function chartYoY(){
+  const svg = document.getElementById("chYoY");
+  const rows = withEarn(filtered());
+  const W=560, PL=104, PR=46, PT=14, rowH=34, PB=26;
+  const H = PT + rows.length*rowH + PB;
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  svg.setAttribute("height", H);
+  if(!rows.length){ svg.innerHTML = `<text class="axis-text" x="${W/2}" y="40" text-anchor="middle">실적 공시 종목 없음</text>`; return; }
+  const maxV = Math.max(120, ...rows.flatMap(c=>[c.revYoY,c.opYoY]));
+  const x = v => PL + (W-PL-PR) * (v/maxV);
+  let g = "";
+  const ticks = [0,25,50,75,100].filter(t=>t<=maxV).concat(maxV>100?[Math.round(maxV/25)*25]:[]);
+  [...new Set(ticks)].forEach(t=>{
+    g += `<line class="axis-line" x1="${x(t)}" y1="${PT}" x2="${x(t)}" y2="${H-PB}"></line>
+          <text class="axis-text" x="${x(t)}" y="${H-PB+14}" text-anchor="middle">${t}%</text>`;
+  });
+  rows.forEach((c,i)=>{
+    const y0 = PT + i*rowH;
+    const bh = 10;
+    g += `<text class="bar-label" x="${PL-8}" y="${y0+15}" text-anchor="end">${c.name}</text>`;
+    g += `<rect class="b-rev" x="${PL}" y="${y0+4}" width="${Math.max(1,x(c.revYoY)-PL)}" height="${bh}" rx="2"></rect>`;
+    g += `<rect class="b-op" x="${PL}" y="${y0+17}" width="${Math.max(1,x(c.opYoY)-PL)}" height="${bh}" rx="2"></rect>`;
+    g += `<text class="axis-text" x="${Math.max(x(c.revYoY),x(c.opYoY))+6}" y="${y0+19}" text-anchor="start">${sgn(c.opYoY,0)}%</text>`;
+    g += `<rect class="hit" x="0" y="${y0}" width="${W}" height="${rowH}" data-i="${i}"></rect>`;
+  });
+  svg.innerHTML = g;
+  svg.querySelectorAll(".hit").forEach(r=>{
+    const c = rows[+r.dataset.i];
+    const move = e=>{
+      const ev = e.touches ? e.touches[0] : e;
+      showTT(ev, `<b>${c.name} · 2Q26</b>
+        <div class="r"><span class="k"><i class="sw" style="background:var(--c-rev)"></i>매출</span><span class="v">${nf(c.rev,0)}억 (${sgn(c.revYoY,1)}%)</span></div>
+        <div class="r"><span class="k"><i class="sw" style="background:var(--c-op)"></i>영업이익</span><span class="v">${nf(c.op,0)}억 (${sgn(c.opYoY,1)}%)</span></div>
+        <div class="r"><span class="k">영업이익률</span><span class="v">${nf(c.opm,1)}%</span></div>
+        <div class="src">전년동기 대비 · 회사 발표 기준 · 2026-08-10</div>`);
+    };
+    r.addEventListener("mousemove", move);
+    r.addEventListener("touchmove", e=>{ e.preventDefault(); move(e); }, {passive:false});
+    r.addEventListener("mouseleave", hideTT);
+    r.addEventListener("touchend", hideTT);
+  });
+}
+
+function chartBacklog(){
+  const svg = document.getElementById("chBl");
+  const rows = filtered().filter(c=>c.backlog!==null).sort((a,b)=>b.backlog-a.backlog);
+  const W=560, PL=104, PR=54, PT=14, rowH=30, PB=26;
+  const H = PT + rows.length*rowH + PB;
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  svg.setAttribute("height", H);
+  if(!rows.length){ svg.innerHTML = `<text class="axis-text" x="${W/2}" y="40" text-anchor="middle">수주잔고 공시 종목 없음</text>`; return; }
+  const maxV = Math.max(...rows.map(c=>c.backlog))/10000;
+  const x = v => PL + (W-PL-PR) * (v/(maxV*1.08));
+  let g = "";
+  const step = maxV>10 ? 5 : maxV>4 ? 2 : 1;
+  for(let t=0; t<=maxV*1.08; t+=step){
+    g += `<line class="axis-line" x1="${x(t)}" y1="${PT}" x2="${x(t)}" y2="${H-PB}"></line>
+          <text class="axis-text" x="${x(t)}" y="${H-PB+14}" text-anchor="middle">${t}</text>`;
+  }
+  g += `<text class="axis-text" x="${W-PR}" y="${H-PB+14}" text-anchor="end">조원</text>`;
+  rows.forEach((c,i)=>{
+    const y0 = PT + i*rowH, v = c.backlog/10000;
+    g += `<text class="bar-label" x="${PL-8}" y="${y0+18}" text-anchor="end">${c.name}</text>`;
+    g += `<rect class="b-bl" x="${PL}" y="${y0+6}" width="${Math.max(1,x(v)-PL)}" height="15" rx="2"></rect>`;
+    g += `<text class="axis-text" x="${x(v)+6}" y="${y0+18}" text-anchor="start">${nf(v,1)}</text>`;
+    g += `<rect class="hit" x="0" y="${y0}" width="${W}" height="${rowH}" data-i="${i}"></rect>`;
+  });
+  svg.innerHTML = g;
+  svg.querySelectorAll(".hit").forEach(r=>{
+    const c = rows[+r.dataset.i];
+    const move = e=>{
+      const ev = e.touches ? e.touches[0] : e;
+      showTT(ev, `<b>${c.name} · 2Q26말 수주잔고</b>
+        <div class="r"><span class="k"><i class="sw" style="background:var(--c-bl)"></i>수주잔고</span><span class="v">${nf(c.backlog/10000,2)}조원</span></div>
+        ${c.backlogNote?`<div class="r"><span class="k">비고</span><span class="v">${c.backlogNote}</span></div>`:""}
+        ${c.rev!==null?`<div class="r"><span class="k">2Q26 매출 연환산</span><span class="v">${nf(c.rev*4/10000,2)}조원</span></div>`:""}
+        <div class="src">회사 발표 기준 · 집계 기준(연결/부문·통화) 상이</div>`);
+    };
+    r.addEventListener("mousemove", move);
+    r.addEventListener("touchmove", e=>{ e.preventDefault(); move(e); }, {passive:false});
+    r.addEventListener("mouseleave", hideTT);
+    r.addEventListener("touchend", hideTT);
+  });
+}
+
+function chartBand(){
+  const svg = document.getElementById("chBand");
+  const rows = withPx(filtered()).sort((a,b)=>bandPos(a)-bandPos(b));
+  const W=560, PL=104, PR=52, PT=16, rowH=30, PB=26;
+  const H = PT + rows.length*rowH + PB;
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  svg.setAttribute("height", H);
+  if(!rows.length){ svg.innerHTML = `<text class="axis-text" x="${W/2}" y="40" text-anchor="middle">시세 확인 종목 없음</text>`; return; }
+  const x = p => PL + (W-PL-PR) * (p/100);
+  let g = "";
+  [0,25,50,75,100].forEach(t=>{
+    g += `<line class="axis-line" x1="${x(t)}" y1="${PT}" x2="${x(t)}" y2="${H-PB}"></line>
+          <text class="axis-text" x="${x(t)}" y="${H-PB+14}" text-anchor="middle">${t===0?"저점":t===100?"고점":t+"%"}</text>`;
+  });
+  rows.forEach((c,i)=>{
+    const y0 = PT + i*rowH, cy = y0+15, p = bandPos(c);
+    g += `<text class="bar-label" x="${PL-8}" y="${cy+4}" text-anchor="end">${c.name}</text>`;
+    g += `<rect class="b-track" x="${PL}" y="${cy-4}" width="${W-PL-PR}" height="8" rx="4"></rect>`;
+    g += `<rect class="b-fill" x="${PL}" y="${cy-4}" width="${Math.max(2,x(p)-PL)}" height="8" rx="4"></rect>`;
+    g += `<circle class="b-dot" cx="${x(p)}" cy="${cy}" r="5.5"></circle>`;
+    g += `<text class="axis-text" x="${W-PR+6}" y="${cy+4}" text-anchor="start">${nf(p,0)}%</text>`;
+    g += `<rect class="hit" x="0" y="${y0}" width="${W}" height="${rowH}" data-i="${i}"></rect>`;
+  });
+  svg.innerHTML = g;
+  svg.querySelectorAll(".hit").forEach(r=>{
+    const c = rows[+r.dataset.i];
+    const move = e=>{
+      const ev = e.touches ? e.touches[0] : e;
+      showTT(ev, `<b>${c.name} (${c.ticker})</b>
+        <div class="r"><span class="k"><i class="sw" style="background:var(--c-rev)"></i>현재가</span><span class="v">${nf(c.price,0)}원</span></div>
+        <div class="r"><span class="k">52주 고점</span><span class="v">${nf(c.high52,0)}원</span></div>
+        <div class="r"><span class="k">52주 저점</span><span class="v">${nf(c.low52,0)}원</span></div>
+        <div class="r"><span class="k">고점 대비</span><span class="v ${tone(dd(c))}">${sgn(dd(c),1)}%</span></div>
+        <div class="r"><span class="k">시가총액</span><span class="v">${nf(c.mcap/10000,2)}조원</span></div>
+        <div class="r"><span class="k">PER</span><span class="v">${c.per===null?"—":nf(c.per,2)+"x"}</span></div>
+        <div class="src">알파스퀘어 2026-08-10 15:17 KST · 매매 전 재확인</div>`);
+    };
+    r.addEventListener("mousemove", move);
+    r.addEventListener("touchmove", e=>{ e.preventDefault(); move(e); }, {passive:false});
+    r.addEventListener("mouseleave", hideTT);
+    r.addEventListener("touchend", hideTT);
+  });
+}
+
+/* ========================= RENDER ========================= */
+function render(){
+  renderChips(); renderPresets(); renderKpi();
+  renderEarn(); renderPx(); renderSim();
+  renderCards();
+  chartYoY(); chartBacklog(); chartBand();
+}
+
+/* events */
+document.getElementById("asOf").textContent = DATA.asOf;
+document.getElementById("burn").addEventListener("input", e=>{
+  state.burn = +e.target.value;
+  document.getElementById("burnOut").textContent = state.burn+"%";
+  renderSim(); renderPresets();
+});
+document.getElementById("opmA").addEventListener("input", e=>{
+  state.opm = +e.target.value;
+  document.getElementById("opmOut").textContent = nf(state.opm,1)+"%";
+  renderSim(); renderPresets();
+});
+document.querySelectorAll("#tblEarn thead th[data-k]").forEach(th=>{
+  th.addEventListener("click", ()=>{
+    const k = th.dataset.k;
+    state.sortE = { k, dir: state.sortE.k===k ? -state.sortE.dir : -1 };
+    renderEarn();
+  });
+});
+document.querySelectorAll("#tblPx thead th[data-k]").forEach(th=>{
+  th.addEventListener("click", ()=>{
+    const k = th.dataset.k;
+    state.sortP = { k, dir: state.sortP.k===k ? -state.sortP.dir : -1 };
+    renderPx();
+  });
+});
+function isDark(){
+  const a = document.documentElement.getAttribute("data-theme");
+  if (a === "dark") return true;
+  if (a === "light") return false;
+  return matchMedia("(prefers-color-scheme: dark)").matches;
+}
+function syncThemeBtn(){
+  document.getElementById("themeBtn").textContent = isDark() ? "☀ 라이트" : "🌙 다크";
+}
+document.getElementById("themeBtn").addEventListener("click", ()=>{
+  document.documentElement.setAttribute("data-theme", isDark() ? "light" : "dark");
+  syncThemeBtn();
+});
+new MutationObserver(()=>{ syncThemeBtn(); chartYoY(); chartBacklog(); chartBand(); })
+  .observe(document.documentElement, { attributes:true, attributeFilter:["data-theme"] });
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ()=>{
+  syncThemeBtn(); chartYoY(); chartBacklog(); chartBand();
+});
+document.getElementById("csvBtn").addEventListener("click", ()=>{
+  const head = ["종목","코드","업종","2Q26매출(억)","매출YoY(%)","영업이익(억)","OPYoY(%)","OPM(%)","수주잔고(억)","현재가","시총(억)","PER","52주고점","고점대비(%)","52주저점"];
+  const lines = [head.join(",")];
+  DATA.companies.forEach(c=>{
+    lines.push([c.name,c.ticker,c.group,c.rev??"",c.revYoY??"",c.op??"",c.opYoY??"",c.opm??"",
+      c.backlog??"",c.price??"",c.mcap??"",c.per??"",c.high52??"",
+      dd(c)===null?"":dd(c).toFixed(1),c.low52??""].join(","));
+  });
+  const blob = new Blob(["﻿"+lines.join("\n")], {type:"text/csv;charset=utf-8"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `power-equipment-2q26_${DATA.asOf}.csv`;
+  a.click(); URL.revokeObjectURL(a.href);
+});
+window.addEventListener("resize", ()=>{ chartYoY(); chartBacklog(); chartBand(); });
+window.addEventListener("scroll", hideTT, {passive:true});
+
+renderPeer(); renderCal(); renderSources();
+render();
+
+/* ---- SVG text overlap self-check (dev) ---- */
+function ov(a,b){return !(a.x+a.width<=b.x||b.x+b.width<=a.x||a.y+a.height<=b.y||b.y+b.height<=a.y);}
+window.scanSvgText = function(){
+  const hits=[];
+  document.querySelectorAll("svg.chart").forEach(svg=>{
+    const bs=[...svg.querySelectorAll("text")].map(t=>{
+      let b; try{b=t.getBBox()}catch(_){return null}
+      return {t:t.textContent.slice(0,14),x:b.x,y:b.y,width:b.width,height:b.height};
+    }).filter(Boolean);
+    for(let i=0;i<bs.length;i++)for(let j=i+1;j<bs.length;j++)
+      if(ov(bs[i],bs[j])) hits.push({svg:svg.id,a:bs[i].t,b:bs[j].t});
+    const vb=(svg.getAttribute("viewBox")||"0 0 0 0").split(/\s+/).map(Number);
+    bs.forEach(b=>{
+      if(b.y<vb[1]-1||b.y+b.height>vb[1]+vb[3]+1) hits.push({svg:svg.id,yOverflow:b.t});
+    });
+  });
+  return hits;
+};
+</script>
+</body>
+</html>

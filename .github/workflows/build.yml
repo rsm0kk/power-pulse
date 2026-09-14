@@ -1,0 +1,62 @@
+name: build-dashboard
+
+on:
+  schedule:
+    - cron: "0 23 * * *"      # UTC 23:00 = 한국시간 매일 08:00
+  workflow_dispatch:           # Actions 탭에서 수동 실행 버튼
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 누적 데이터·DART 캐시 복원
+        # store.json 은 과거 시계열 누적본, cache/ 는 DART 보고서 원문.
+        # 둘 다 매 실행 새로 만들 수는 있지만(37개월 재수집) 시간이 오래 걸리고
+        # API 한도를 먹으므로 직전 실행분을 이어받는다.
+        uses: actions/cache@v4
+        with:
+          path: |
+            cache
+            store.json
+          key: power-data-${{ github.run_id }}
+          restore-keys: power-data-
+
+      - name: 대시보드 빌드
+        env:
+          CUSTOMS_KEY: ${{ secrets.CUSTOMS_KEY }}
+          DART_KEY: ${{ secrets.DART_KEY }}
+          FRED_KEY: ${{ secrets.FRED_KEY }}
+          PYTHONIOENCODING: "utf-8"
+        run: python power_pulse.py
+
+      - name: 사이트 준비
+        run: |
+          mkdir -p _site
+          cp "out/전력기기_대시보드_최신.html" _site/index.html
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deploy
+        uses: actions/deploy-pages@v4
